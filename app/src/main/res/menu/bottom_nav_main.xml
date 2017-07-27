@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_cal"
         android:title="@string/cal"
         app:showAsAction="ifRoom"/>
-    
+
     <item
         android:id="@+id/action_upcoming"
         android:enabled="true"
