@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView group;
-    private TextView schedule;
+    private CalendarView calendar;
     private TextView upcoming;
 
     @Override
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         group = (TextView) findViewById(R.id.text_groups);
-        schedule = (TextView) findViewById(R.id.text_schedules);
+        calendar = (CalendarView) findViewById(R.id.calendarView);
         upcoming = (TextView) findViewById(R.id.text_upcoming);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
@@ -35,17 +35,17 @@ public class MainActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
                             case R.id.action_groups:
                                 group.setVisibility(View.VISIBLE);
-                                schedule.setVisibility(View.GONE);
+                                calendar.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.GONE);
                                 break;
                             case R.id.action_schedules:
                                 group.setVisibility(View.GONE);
-                                schedule.setVisibility(View.VISIBLE);
+                                calendar.setVisibility(View.VISIBLE);
                                 upcoming.setVisibility(View.GONE);
                                 break;
                             case R.id.action_upcoming:
                                 group.setVisibility(View.GONE);
-                                schedule.setVisibility(View.GONE);
+                                calendar.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.VISIBLE);
                                 break;
                         }
