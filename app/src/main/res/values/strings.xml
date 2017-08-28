@@ -3,4 +3,8 @@
     <string name="group">Groups</string>
     <string name="cal">Calendar</string>
     <string name="up">Upcoming</string>
+    <string name="descrip">Logo</string>
+    <string name="message">Please sign into see your calendar</string>
+    <string name="register">Register</string>
+    <string name="sign_in">Sign In</string>
 </resources>
