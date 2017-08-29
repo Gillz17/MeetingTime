@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight">
 
     <ImageView
         android:id="@+id/logo"
@@ -10,45 +11,53 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/calendar1600"
-        android:layout_marginTop="75dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/sign_in_button" />
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/message"
-        android:layout_marginTop="40dp"
         android:layout_below="@+id/logo"
-        android:layout_alignStart="@+id/sign_in_button" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+        android:id="@+id/google_signin_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/message"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/message"
+        android:layout_marginTop="25dp"
         android:elevation="5dp"/>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_signin_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/regular_sign_in_button"
+        android:layout_alignStart="@+id/google_signin_button"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/regular_sign_in_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="@string/sign_in"
-        android:layout_alignTop="@+id/register"
-        android:layout_toStartOf="@+id/register"
-        android:elevation="5dp"/>
+        android:elevation="5dp"
+        android:layout_alignBaseline="@+id/register"
+        android:layout_alignBottom="@+id/register"
+        android:layout_alignEnd="@+id/message"/>
 
     <Button
         android:id="@+id/register"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/sign_in_button"
-        android:layout_alignEnd="@+id/sign_in_button"
-        android:elevation="5dp"/>
+        android:elevation="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/message"
+        android:layout_marginBottom="46dp"/>
 
 </RelativeLayout>
