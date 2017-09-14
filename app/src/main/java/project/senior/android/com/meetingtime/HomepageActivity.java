@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
-public class MainActivity extends AppCompatActivity {
+public class HomepageActivity extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
     private TextView group;
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.homepage);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         group = (TextView) findViewById(R.id.text_groups);

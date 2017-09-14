@@ -1,10 +1,22 @@
 <resources>
+    <string name="server_client_id">334187707555-p5cid9inbh2ubnd5qirq3ucnl19e273i.apps.googleusercontent.com</string>
     <string name="app_name">MeetingTime</string>
     <string name="group">Groups</string>
     <string name="cal">Calendar</string>
     <string name="up">Upcoming</string>
     <string name="descrip">Logo</string>
-    <string name="message">Please sign into see your calendar</string>
+    <string name="message">New here? Register</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign In</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="weds">WED</string>
+    <string name="thur">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="signInMessage">Already have an account? Sign in</string>
 </resources>

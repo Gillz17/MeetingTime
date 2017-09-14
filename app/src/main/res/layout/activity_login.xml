@@ -1,63 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:contentDescription="@string/descrip"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/calendar1600"
-        android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"/>
+    <!--Content Container-->
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/message"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"/>
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_signin_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/message"
-        android:layout_marginTop="25dp"
-        android:elevation="5dp"/>
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/facebook_signin_button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/regular_sign_in_button"
-        android:layout_alignStart="@+id/google_signin_button"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/regular_sign_in_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_in"
         android:elevation="5dp"
-        android:layout_alignBaseline="@+id/register"
-        android:layout_alignBottom="@+id/register"
-        android:layout_alignEnd="@+id/message"/>
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:elevation="5dp"
+        android:layout_marginBottom="75dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/message"
-        android:layout_marginBottom="46dp"/>
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/username"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/editText"
+        android:layout_alignStart="@+id/editText" />
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="@string/message" />
 
 </RelativeLayout>
