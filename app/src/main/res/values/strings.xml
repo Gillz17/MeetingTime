@@ -19,4 +19,5 @@
     <string name="username">Username</string>
     <string name="name">Name</string>
     <string name="signInMessage">Already have an account? Sign in</string>
+    <string name="orBreak">------------------------------or-----------------------------</string>
 </resources>
