@@ -16,7 +16,7 @@
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
     <string name="password">Password</string>
-    <string name="username">Username</string>
+    <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="signInMessage">Already have an account? Sign in</string>
     <string name="orBreak">------------------------------or-----------------------------</string>

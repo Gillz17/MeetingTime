@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements
     private FirebaseAuth mAuth;
     private String mCustomToken;
     private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -51,6 +52,20 @@ public class LoginActivity extends AppCompatActivity implements
                 .requestEmail()
                 .build();
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    //user is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                }else{
+                    //User signed out
+                    Log.d(TAG,"onAuthStateChanged:signed_out:");
+                }
+            }
+        };
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -63,6 +78,20 @@ public class LoginActivity extends AppCompatActivity implements
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
     }
     @Override
@@ -103,5 +132,21 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG,"onConnectionFailed:" + connectionResult);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    private void signIn(String email,String password){
+
     }
 }

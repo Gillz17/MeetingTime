@@ -9,24 +9,13 @@
 
 
     <EditText
-        android:id="@+id/tfName"
+        android:id="@+id/tfEmail"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/name"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tfUsername"
-        android:layout_marginTop="45dp" />
-
-    <EditText
-        android:id="@+id/tfUsername"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/username"
-        android:layout_below="@+id/tfName"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        android:layout_centerInParent="true"
         android:layout_alignStart="@+id/tfPassword" />
 
     <EditText
@@ -36,23 +25,26 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:layout_below="@+id/tfUsername"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/tfEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp" />
 
     <Button
         android:id="@+id/bRegister"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        android:layout_below="@+id/tvSignin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tfPassword"
+        android:layout_marginBottom="44dp" />
 
     <TextView
         android:id="@+id/tvSignin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signInMessage"
         android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/bRegister" />
+        android:text="@string/signInMessage"
+        android:layout_above="@+id/bRegister"
+        android:layout_alignStart="@+id/tfPassword"
+        android:layout_marginBottom="35dp" />
 </RelativeLayout>
