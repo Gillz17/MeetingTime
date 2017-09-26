@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,6 +59,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             //password is empty
             Toast.makeText(this, "Please enter a Password", Toast.LENGTH_LONG).show();
             return;
+        }else if(password.length() < 6){
+            //Firebase requires a length of 6 characters, otherwise it will not register properly.
+            //So the code checks to make sure this is the case
+            //if the password is less than 6, the application will inform the user of this requirement.
+            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_LONG).show();
+            return;
         }
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -86,6 +91,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if(view == signInLink){
             //open sign in activity
+            Intent signInIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            RegisterActivity.this.startActivity(signInIntent);
         }
     }
 }

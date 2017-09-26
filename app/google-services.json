@@ -1,38 +1,35 @@
 {
   "project_info": {
-    "project_number": "334187707555",
-    "firebase_url": "https://meetingtime-6ec29.firebaseio.com",
-    "project_id": "meetingtime-6ec29",
-    "storage_bucket": "meetingtime-6ec29.appspot.com"
+    "project_number": "465299838244",
+    "firebase_url": "https://scheduler-d228a.firebaseio.com",
+    "project_id": "scheduler-d228a",
+    "storage_bucket": "scheduler-d228a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:334187707555:android:b1181fe4fb177662",
+        "mobilesdk_app_id": "1:465299838244:android:b1181fe4fb177662",
         "android_client_info": {
           "package_name": "project.senior.android.com.meetingtime"
         }
       },
       "oauth_client": [
         {
-          "client_id": "334187707555-3rhi074dlmf2b18l8656lvjukkm3o9r2.apps.googleusercontent.com",
+          "client_id": "465299838244-27h9is9j5dfl7395cjogbjoq0lquj2u1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "project.senior.android.com.meetingtime",
-            "certificate_hash": "c52a8c0d5ec107fac2a55ddb6466c6ed93855c34"
+            "certificate_hash": "726d95ecda614b2060536c75270a098c6db63226"
           }
         },
         {
-          "client_id": "334187707555-p5cid9inbh2ubnd5qirq3ucnl19e273i.apps.googleusercontent.com",
+          "client_id": "465299838244-vs64lke9cahhimsjnn75172ttusbo3qm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAItmDkH3p2ysGKFzs_oYFcM8trZhbPfTk"
-        },
-        {
-          "current_key": "AIzaSyATpz4dDPhYjg2b93mEb7w3_cokCzxfgDg"
+          "current_key": "AIzaSyAfXyiKXBe8n-Md5az5-rbb9MN_xcVgDuY"
         }
       ],
       "services": {
@@ -43,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "334187707555-p5cid9inbh2ubnd5qirq3ucnl19e273i.apps.googleusercontent.com",
+              "client_id": "465299838244-vs64lke9cahhimsjnn75172ttusbo3qm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
