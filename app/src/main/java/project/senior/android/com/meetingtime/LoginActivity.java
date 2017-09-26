@@ -5,6 +5,7 @@ import android.drm.ProcessedData;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity implements
     public static final String TAG = "LoginActivity";
     public static final int RC_SIGN_IN = 9001;
 
+    private EditText tfEmail;
+    private EditText tfPassword;
+
     private FirebaseAuth mAuth;
     private String mCustomToken;
     private GoogleApiClient mGoogleApiClient;
@@ -41,12 +45,13 @@ public class LoginActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final EditText tfUsername = (EditText) findViewById(R.id.tfUsername);
-        final EditText tfPassword = (EditText) findViewById(R.id.tfPassword);
-        final Button bSignin = (Button) findViewById(R.id.bSignin);
+        tfEmail = (EditText) findViewById(R.id.tfEmail);
+        tfPassword = (EditText) findViewById(R.id.tfPassword);
+        final Button bSignin = (Button) findViewById(R.id.bSignIn);
         final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
 
         findViewById(R.id.google_signin_button).setOnClickListener(this);
+        bSignin.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -121,7 +126,8 @@ public class LoginActivity extends AppCompatActivity implements
         switch (v.getId()){
             case R.id.google_signin_button:
                 signIn();
-                break;
+            case R.id.bSignIn:
+                SignInUser();
         }
     }
     private void signIn(){
@@ -146,7 +152,31 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private void signIn(String email,String password){
+    private void SignInUser(){
+        String email = tfEmail.getText().toString().trim();
+        String password = tfPassword.getText().toString().trim();
 
+        if(TextUtils.isEmpty(email)){
+            //Email is empty
+            Toast.makeText(this, "Please enter your email", Toast.LENGTH_LONG).show();
+        }
+        if(TextUtils.isEmpty(password)){
+            //Password is empty
+            Toast.makeText(this, "Please enter your password", Toast.LENGTH_LONG).show();
+        }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            //start the homepage activity
+                            Intent homepageIntent = new Intent(LoginActivity.this, HomepageActivity.class);
+                            LoginActivity.this.startActivity(homepageIntent);
+                        }else{
+                            Toast.makeText(LoginActivity.this, "Could not sign in.  Check email and password",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 }
