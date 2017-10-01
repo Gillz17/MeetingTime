@@ -1,13 +1,17 @@
 package project.senior.android.com.meetingtime;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,30 +59,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if(TextUtils.isEmpty(email)){
             //email is empty
-            Toast.makeText(this, "Please enter Email",Toast.LENGTH_LONG).show();
+            tfEmail.setError("Enter email");
             return;
-        }else if(!email.contains("@")){
-            Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_LONG).show();
-            return;
-        }else if(!email.contains(".com") && !email.contains(".edu") && !email.contains(".org")
+        }else{
+            tfEmail.setError(null);
+        }
+        if(!email.contains("@")){
+            tfEmail.setError("Enter a valid email");
+        }else{
+            tfEmail.setError(null);
+        }
+        if(!email.contains(".com") && !email.contains(".edu") && !email.contains(".org")
                 && !email.contains(".gov")){
-            Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_LONG).show();
-            return;
+            tfEmail.setError("Enter a valid email");
+        }else{
+            tfEmail.setError(null);
         }
         if(!confirm.equals(password)){
-            Toast.makeText(this, "Please make sure the passwords match.",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }else if(TextUtils.isEmpty(password)) {
+            tfPassConfirm.setError("Passwords do not match");
+        }else{
+            tfPassConfirm.setError(null);
+        }
+        if(TextUtils.isEmpty(password)) {
             //password is empty
-            Toast.makeText(this, "Please enter a Password", Toast.LENGTH_LONG).show();
-            return;
-        }else if(password.length() < 6){
+            tfPassword.setError("Enter password");
+        }else{
+            tfPassword.setError(null);
+        }
+        if(password.length() < 6){
             //Firebase requires a length of 6 characters, otherwise it will not register properly.
             //So the code checks to make sure this is the case
             //if the password is less than 6, the application will inform the user of this requirement.
-            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_LONG).show();
-            return;
+            tfPassword.setError("Password must be at least 6 characters");
+        }else{
+            tfPassword.setError(null);
         }
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -87,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             //start homepage activity
+
                             Intent homepageIntent = new Intent(RegisterActivity.this, HomepageActivity.class);
                             RegisterActivity.this.startActivity(homepageIntent);
                         }else{
