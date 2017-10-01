@@ -15,8 +15,9 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:hint="@string/email"
-        android:layout_centerInParent="true"
-        android:layout_alignStart="@+id/tfPassword" />
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tfPassword"
+        android:layout_marginTop="160dp" />
 
     <EditText
         android:id="@+id/tfPassword"
@@ -47,4 +48,16 @@
         android:layout_above="@+id/bRegister"
         android:layout_alignStart="@+id/tfPassword"
         android:layout_marginBottom="35dp" />
+
+    <EditText
+        android:id="@+id/tfPassConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/tfPassword"
+        android:layout_alignStart="@+id/tfPassword"
+        android:layout_alignEnd="@+id/tfPassword" />
 </RelativeLayout>

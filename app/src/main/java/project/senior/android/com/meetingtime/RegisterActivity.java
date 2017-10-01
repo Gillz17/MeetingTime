@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private EditText tfEmail;
     private EditText tfPassword;
+    private EditText tfPassConfirm;
     private TextView signInLink;
     private Button bRegister;
 
@@ -37,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         tfEmail = (EditText) findViewById(R.id.tfEmail);
         tfPassword = (EditText) findViewById(R.id.tfPassword);
+        tfPassConfirm = (EditText) findViewById(R.id.tfPassConfirm);
 
         signInLink = (TextView) findViewById(R.id.tvSignin);
 
@@ -49,13 +51,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void registerUser(){
         String email = tfEmail.getText().toString().trim();
         String password = tfPassword.getText().toString().trim();
+        String confirm = tfPassConfirm.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
             //email is empty
             Toast.makeText(this, "Please enter Email",Toast.LENGTH_LONG).show();
             return;
+        }else if(!email.contains("@")){
+            Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_LONG).show();
+            return;
+        }else if(!email.contains(".com") && !email.contains(".edu") && !email.contains(".org")
+                && !email.contains(".gov")){
+            Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_LONG).show();
+            return;
         }
-        if(TextUtils.isEmpty(password)) {
+        if(!confirm.equals(password)){
+            Toast.makeText(this, "Please make sure the passwords match.",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }else if(TextUtils.isEmpty(password)) {
             //password is empty
             Toast.makeText(this, "Please enter a Password", Toast.LENGTH_LONG).show();
             return;

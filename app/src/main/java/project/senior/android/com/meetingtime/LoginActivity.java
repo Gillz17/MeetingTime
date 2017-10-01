@@ -36,7 +36,6 @@ public class LoginActivity extends AppCompatActivity implements
     private EditText tfPassword;
 
     private FirebaseAuth mAuth;
-    private String mCustomToken;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -47,30 +46,18 @@ public class LoginActivity extends AppCompatActivity implements
 
         tfEmail = (EditText) findViewById(R.id.tfEmail);
         tfPassword = (EditText) findViewById(R.id.tfPassword);
-        final Button bSignin = (Button) findViewById(R.id.bSignIn);
+        final Button bSignIn = (Button) findViewById(R.id.bSignIn);
         final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
 
         findViewById(R.id.google_signin_button).setOnClickListener(this);
-        bSignin.setOnClickListener(this);
+        bSignIn.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener(){
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    //user is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                }else{
-                    //User signed out
-                    Log.d(TAG,"onAuthStateChanged:signed_out:");
-                }
-            }
-        };
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -83,6 +70,9 @@ public class LoginActivity extends AppCompatActivity implements
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
+
+        bSignIn.setOnClickListener(this);
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -126,8 +116,10 @@ public class LoginActivity extends AppCompatActivity implements
         switch (v.getId()){
             case R.id.google_signin_button:
                 signIn();
+                break;
             case R.id.bSignIn:
                 SignInUser();
+                break;
         }
     }
     private void signIn(){
@@ -168,13 +160,16 @@ public class LoginActivity extends AppCompatActivity implements
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            //start the homepage activity
-                            Intent homepageIntent = new Intent(LoginActivity.this, HomepageActivity.class);
-                            LoginActivity.this.startActivity(homepageIntent);
-                        }else{
-                            Toast.makeText(LoginActivity.this, "Could not sign in.  Check email and password",
-                                    Toast.LENGTH_LONG).show();
+                        if (task.isSuccessful()) {
+                            // Sign in success, start homepage activity.
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            startActivity(new Intent(getApplicationContext(),HomepageActivity.class));
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
