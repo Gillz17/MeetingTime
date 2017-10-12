@@ -76,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements
         bSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Toast.makeText(LoginActivity.this, "Click", Toast.LENGTH_SHORT).show();
                 signIn();
             }
         });
@@ -147,6 +146,14 @@ public class LoginActivity extends AppCompatActivity implements
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    @Override
+    //Needed to protect the login feature
+    //If the user enters the app and signs out they would be
+    //able to enter again by pressing the back button
+    //But with this they cannot do that
+    public void onBackPressed() {
     }
 
     private void SignInUser(){

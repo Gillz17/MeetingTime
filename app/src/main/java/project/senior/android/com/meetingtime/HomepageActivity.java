@@ -96,6 +96,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private void signOut(){
         startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+
     }
     private void deleteAccount(){//Need way to delete account either through Firebase or Google
                                 //based on how the user signed in.
