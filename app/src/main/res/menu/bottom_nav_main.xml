@@ -23,4 +23,5 @@
         android:icon="@drawable/ic_up"
         android:title="@string/up"
         app:showAsAction="ifRoom"/>
+
 </menu>

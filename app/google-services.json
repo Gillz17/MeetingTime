@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "465299838244-mgk8o9cc13jm5qorebc3ufs3296a95he.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.senior.android.com.meetingtime",
+            "certificate_hash": "c52a8c0d5ec107fac2a55ddb6466c6ed93855c34"
+          }
+        },
+        {
           "client_id": "465299838244-27h9is9j5dfl7395cjogbjoq0lquj2u1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -29,7 +37,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAfXyiKXBe8n-Md5az5-rbb9MN_xcVgDuY"
+          "current_key": "AIzaSyBGONj5O-APsoYDoemWi7yOccmHRd6QLF4"
         }
       ],
       "services": {

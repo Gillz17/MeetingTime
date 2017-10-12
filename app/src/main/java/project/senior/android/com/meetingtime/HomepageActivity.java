@@ -1,18 +1,24 @@
 package project.senior.android.com.meetingtime;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class HomepageActivity extends AppCompatActivity {
-
+    private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private TextView group;
     private CalendarView calendar;
@@ -68,5 +74,31 @@ public class HomepageActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.actions_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.logout:
+                signOut();
+                return true;
+            case R.id.delete:
+                deleteAccount();
+                return true;
+        }
+        return true;
+    }
+
+    private void signOut(){
+        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+    }
+    private void deleteAccount(){//Need way to delete account either through Firebase or Google
+                                //based on how the user signed in.
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 }
