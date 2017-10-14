@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -48,7 +49,8 @@ public class HomepageActivity extends AppCompatActivity {
                                 calendar.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"groups");
-                                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Group View");
+                                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
+                                        "Group View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
                                 break;
@@ -57,7 +59,8 @@ public class HomepageActivity extends AppCompatActivity {
                                 calendar.setVisibility(View.VISIBLE);
                                 upcoming.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Calendar");
-                                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Calendar View");
+                                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
+                                        "Calendar View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
                                 break;
@@ -66,7 +69,8 @@ public class HomepageActivity extends AppCompatActivity {
                                 calendar.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.VISIBLE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Upcoming");
-                                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Upcoming View");
+                                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
+                                        "Upcoming View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
                                 break;
@@ -74,6 +78,21 @@ public class HomepageActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year,
+                                            int month, int day) {
+                Long date;
+                calendar = (CalendarView) findViewById(R.id.calendarView);
+                date = calendar.getDate();
+
+                if(calendar.getDate() != date){
+                    date = calendar.getDate();
+                    Toast.makeText(calendarView.getContext(), "Year = " + year +
+                            "Month = " + month + "Day = " + day, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -101,5 +120,12 @@ public class HomepageActivity extends AppCompatActivity {
     private void deleteAccount(){//Need way to delete account either through Firebase or Google
                                 //based on how the user signed in.
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    }
+    @Override
+    //Needed to protect the login feature
+    //If the user enters the app and signs out they would be
+    //able to enter again by pressing the back button
+    //But with this they cannot do that
+    public void onBackPressed() {
     }
 }
