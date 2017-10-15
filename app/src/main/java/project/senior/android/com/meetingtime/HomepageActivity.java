@@ -1,10 +1,12 @@
 package project.senior.android.com.meetingtime;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.api.services.calendar.Calendar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class HomepageActivity extends AppCompatActivity {
@@ -80,17 +83,10 @@ public class HomepageActivity extends AppCompatActivity {
                 });
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year,
-                                            int month, int day) {
-                Long date;
-                calendar = (CalendarView) findViewById(R.id.calendarView);
-                date = calendar.getDate();
-
-                if(calendar.getDate() != date){
-                    date = calendar.getDate();
-                    Toast.makeText(calendarView.getContext(), "Year = " + year +
-                            "Month = " + month + "Day = " + day, Toast.LENGTH_LONG).show();
-                }
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month,
+                                            int day) {
+                String curDate = String.valueOf(day);
+                Toast.makeText(HomepageActivity.this, "Date " + curDate, Toast.LENGTH_SHORT).show();
             }
         });
     }
