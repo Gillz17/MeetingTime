@@ -86,7 +86,9 @@ public class HomepageActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month,
                                             int day) {
                 String curDate = String.valueOf(day);
-                Toast.makeText(HomepageActivity.this, "Date " + curDate, Toast.LENGTH_SHORT).show();
+                String curMonth = String.valueOf(month);
+                Toast.makeText(HomepageActivity.this, "Month " + curMonth + " Date " + curDate,
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
