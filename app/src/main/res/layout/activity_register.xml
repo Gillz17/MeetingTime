@@ -13,6 +13,17 @@
 
 
     <EditText
+        android:id="@+id/tfName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tfPassword"
+        android:layout_alignStart="@+id/tfEmail"
+        android:layout_marginBottom="65dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/tfEmail"
         android:layout_width="200dp"
         android:layout_height="wrap_content"

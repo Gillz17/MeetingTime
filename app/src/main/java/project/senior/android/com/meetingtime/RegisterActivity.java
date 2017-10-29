@@ -17,11 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "Register";
 
+    private EditText tfName;
     private EditText tfEmail;
     private EditText tfPassword;
     private EditText tfPassConfirm;
@@ -30,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         mAuth = FirebaseAuth.getInstance();
 
+        tfName = (EditText) findViewById(R.id.tfName);
         tfEmail = (EditText) findViewById(R.id.tfEmail);
         tfPassword = (EditText) findViewById(R.id.tfPassword);
         tfPassConfirm = (EditText) findViewById(R.id.tfPassConfirm);
@@ -48,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         bRegister.setOnClickListener(this);
         signInLink.setOnClickListener(this);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void registerUser(){
@@ -108,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
+
     }
 
     @Override
@@ -120,5 +128,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Intent signInIntent = new Intent(RegisterActivity.this, LoginActivity.class);
             RegisterActivity.this.startActivity(signInIntent);
         }
+    }
+    private void writeNewUser(String email, String name){
+        User user = new User(name,email);
+        mDatabase.child("users").child(email).setValue(user);
     }
 }

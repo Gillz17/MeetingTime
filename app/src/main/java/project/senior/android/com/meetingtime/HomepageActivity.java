@@ -16,15 +16,15 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.github.sundeepk.compactcalendarview.domain.Event;
-
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.api.services.calendar.Calendar;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import android.provider.CalendarContract.Calendars;
 
 
@@ -32,8 +32,9 @@ public class HomepageActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private TextView group;
-    private CompactCalendarView calendar;
+    private CalendarView calendar;
     private TextView upcoming;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -42,7 +43,6 @@ public class HomepageActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         group = (TextView) findViewById(R.id.text_groups);
-        calendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         upcoming = (TextView) findViewById(R.id.text_upcoming);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
@@ -88,8 +88,8 @@ public class HomepageActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-        Event ev1 = new Event(Color.GREEN, 1433701251000L);
-        calendar.addEvent(ev1);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        
     }
 
     @Override

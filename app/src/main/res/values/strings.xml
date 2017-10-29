@@ -22,4 +22,7 @@
     <string name="orBreak">------------------------------or-----------------------------</string>
     <string name="logout">Logout</string>
     <string name="delete">Delete Account</string>
+    <string name="add_event">Add Calendar Event</string>
+    <string name="current_date">October 2017</string>
+    <string name="last_date">30</string>
 </resources>
