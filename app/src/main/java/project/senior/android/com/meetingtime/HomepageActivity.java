@@ -1,6 +1,8 @@
 package project.senior.android.com.meetingtime;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,18 +16,23 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.api.services.calendar.Calendar;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import android.provider.CalendarContract.Calendars;
+
 
 public class HomepageActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private TextView group;
-    private CalendarView calendar;
+    private CompactCalendarView calendar;
     private TextView upcoming;
 
     @Override
@@ -35,7 +42,7 @@ public class HomepageActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         group = (TextView) findViewById(R.id.text_groups);
-        calendar = (CalendarView) findViewById(R.id.calendarView);
+        calendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         upcoming = (TextView) findViewById(R.id.text_upcoming);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
@@ -81,16 +88,8 @@ public class HomepageActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month,
-                                            int day) {
-                String curDate = String.valueOf(day);
-                String curMonth = String.valueOf(month);
-                Toast.makeText(HomepageActivity.this, "Month " + curMonth + " Date " + curDate,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        Event ev1 = new Event(Color.GREEN, 1433701251000L);
+        calendar.addEvent(ev1);
     }
 
     @Override

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.0"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "project.senior.android.com.meetingtime"
         minSdkVersion 21
@@ -27,7 +27,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -42,6 +41,12 @@ dependencies {
     compile ('com.google.apis:google-api-services-calendar:v3-rev256-1.23.0'){
         exclude group: 'org.apache.httpcomponents'
     }
+    compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'com.google.apis:google-api-services-calendar:v3-rev119-1.19.1'
+    compile 'com.google.api-client:google-api-client:1.19.1'
+    compile 'com.google.api-client:google-api-client-android:1.19.1'
+    compile 'com.google.api-client:google-api-client-gson:1.19.1'
+    compile 'com.github.sundeepk:compact-calendar-view:2.0.2.2'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'
