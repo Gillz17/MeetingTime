@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,15 +26,13 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import android.provider.CalendarContract.Calendars;
-
-
 public class HomepageActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private TextView group;
     private CalendarView calendar;
     private TextView upcoming;
+    private Button addEvent;
     private DatabaseReference mDatabase;
 
     @Override
@@ -44,6 +43,14 @@ public class HomepageActivity extends AppCompatActivity {
 
         group = (TextView) findViewById(R.id.text_groups);
         upcoming = (TextView) findViewById(R.id.text_upcoming);
+        addEvent = (Button) findViewById(R.id.add_calendar_event);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent addEvent = new Intent(HomepageActivity.this, EventCreationActivity.class);
+               HomepageActivity.this.startActivity(addEvent);
+            }
+        });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -89,7 +96,6 @@ public class HomepageActivity extends AppCompatActivity {
                     }
                 });
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        
     }
 
     @Override

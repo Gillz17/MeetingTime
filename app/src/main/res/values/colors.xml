@@ -9,10 +9,11 @@
     <color name="black">#000000</color>
     <color name="red">#f44242</color>
     <color name="blue">#0000f4</color>
-    <color name="green">#00f400</color>
-    <color name="yellow">#ffff00</color>
+    <color name="green">#00b118</color>
+    <color name="yellow">#f1f10e</color>
     <color name="purple">#9b30ff</color>
     <color name="orange">#ffa500</color>
     <color name="pink">#ffbbff</color>
+    <color name="brown">#8B4513</color>
     <color name="background_material_light">#ffffff</color>
 </resources>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/tfTitle"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textAutoCorrect"
+        android:hint="Title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:id="@+id/bDate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tfTitle"
+        android:layout_below="@+id/tfTitle"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="date"/>
+
+    <EditText
+        android:id="@+id/tfStartTime"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/bDate"
+        android:layout_below="@+id/bDate"
+        android:layout_marginTop="20dp"
+        android:inputType="datetime"/>
+
+    <EditText
+        android:id="@+id/tfEndTime"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/bDate"
+        android:layout_below="@+id/tfStartTime"
+        android:layout_marginTop="20dp"
+        android:inputType="datetime"/>
+
+    <EditText
+        android:id="@+id/tfLocation"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tfEndTime"
+        android:layout_below="@+id/tfEndTime"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Location"
+        android:inputType="textAutoCorrect"/>
+
+
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"/>
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"/>
+
+    <RadioGroup
+        android:id="@+id/rg1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tfLocation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:checked="true"
+            android:buttonTint="@color/red"/>
+
+        <RadioButton
+            android:id="@+id/rbBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:buttonTint="@color/blue"/>
+
+        <RadioButton
+            android:id="@+id/rbGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:buttonTint="@color/green"/>
+
+        <RadioButton
+            android:id="@+id/rbYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:buttonTint="@color/yellow"/>
+
+
+        <RadioButton
+            android:id="@+id/rbPurple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:buttonTint="@color/purple"/>
+        <RadioButton
+            android:id="@+id/rbOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:buttonTint="@color/orange"/>
+        <RadioButton
+            android:id="@+id/rbPink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:buttonTint="@color/pink"/>
+        <RadioButton
+            android:id="@+id/rbBrown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:buttonTint="@color/brown"/>
+    </RadioGroup>
+</RelativeLayout>

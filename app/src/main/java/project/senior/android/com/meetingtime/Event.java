@@ -39,7 +39,6 @@ public class Event {
     public String getEventColor(){
         return this.eventColor;
     }
-    public String getLocation(){
-        return this.location;
-    }
+    public String getLocation(){return this.location;}
 }
+
