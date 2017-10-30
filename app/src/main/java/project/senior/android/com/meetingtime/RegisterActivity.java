@@ -58,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void registerUser(){
+        String name = tfName.getText().toString().trim();
         String email = tfEmail.getText().toString().trim();
         String password = tfPassword.getText().toString().trim();
         String confirm = tfPassConfirm.getText().toString().trim();
@@ -115,7 +116,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
-
+        //add user to the database
+        writeNewUser(email, name);
     }
 
     @Override
@@ -131,6 +133,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
     private void writeNewUser(String email, String name){
         Users user = new Users(name,email);
-        mDatabase.child("users").child(email).setValue(user);
+        mDatabase.child("users").push().setValue(user);
     }
 }
