@@ -132,7 +132,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     private void writeNewUser(String email, String name){
-        Users user = new Users(name,email);
+        Users user = new Users(email,name);
         mDatabase.child("users").push().setValue(user);
+    }
+    private void createEventList(String email){
+        Event event = new Event();
+        mDatabase.child("events").push().setValue(event);
     }
 }

@@ -74,13 +74,12 @@
 
     <RadioGroup
         android:id="@+id/rg1"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tfLocation"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="23dp"
         android:orientation="horizontal">
-
         <RadioButton
             android:id="@+id/rbRed"
             android:layout_width="wrap_content"
@@ -88,52 +87,64 @@
             android:padding="7dp"
             android:checked="true"
             android:buttonTint="@color/red"/>
-
         <RadioButton
             android:id="@+id/rbBlue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:buttonTint="@color/blue"/>
-
         <RadioButton
             android:id="@+id/rbGreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:buttonTint="@color/green"/>
-
         <RadioButton
             android:id="@+id/rbYellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:buttonTint="@color/yellow"/>
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/rg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rg1"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rbPurple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:buttonTint="@color/purple"/>
+            <RadioButton
+                android:id="@+id/rbOrange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:buttonTint="@color/orange"/>
+            <RadioButton
+                android:id="@+id/rbPink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:buttonTint="@color/pink"/>
+            <RadioButton
+                android:id="@+id/rbBrown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:buttonTint="@color/brown"/>
+        </RadioGroup>
 
+    <Button
+        android:id="@+id/bCreate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/rg1"
+        android:layout_below="@+id/rg2"
+        android:text="Create Event" />
 
-        <RadioButton
-            android:id="@+id/rbPurple"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:buttonTint="@color/purple"/>
-        <RadioButton
-            android:id="@+id/rbOrange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:buttonTint="@color/orange"/>
-        <RadioButton
-            android:id="@+id/rbPink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:buttonTint="@color/pink"/>
-        <RadioButton
-            android:id="@+id/rbBrown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:buttonTint="@color/brown"/>
-    </RadioGroup>
 </RelativeLayout>

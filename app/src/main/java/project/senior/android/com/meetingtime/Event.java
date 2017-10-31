@@ -12,6 +12,9 @@ public class Event {
     public String eventColor;
     public int date;
 
+    public Event(){
+
+    }
     public Event(String title,
                  int date, int startTime,
                  int endTime, String eventColor,
