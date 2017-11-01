@@ -1,5 +1,7 @@
 package project.senior.android.com.meetingtime;
 
+import java.util.Date;
+
 /**
  * Created by NCASE on 10/29/2017.
  */
@@ -10,13 +12,13 @@ public class Event {
     public int endTime;
     public String location;
     public String eventColor;
-    public int date;
+    public Date date;
 
     public Event(){
 
     }
     public Event(String title,
-                 int date, int startTime,
+                 Date date, int startTime,
                  int endTime, String eventColor,
                  String location){
         this.title = title;
@@ -30,7 +32,7 @@ public class Event {
     public String getTitle(){
         return this.title;
     }
-    public int getDate(){
+    public Date getDate(){
         return this.date;
     }
     public int getStartTime(){

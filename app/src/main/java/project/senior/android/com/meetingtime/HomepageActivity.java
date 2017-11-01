@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +22,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.api.services.calendar.Calendar;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +31,6 @@ public class HomepageActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private TextView group;
-    private CalendarView calendar;
     private TextView upcoming;
     private Button addEvent;
     private DatabaseReference mDatabase;
@@ -44,6 +44,11 @@ public class HomepageActivity extends AppCompatActivity {
         group = (TextView) findViewById(R.id.text_groups);
         upcoming = (TextView) findViewById(R.id.text_upcoming);
         addEvent = (Button) findViewById(R.id.add_calendar_event);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String UUID = user.getUid();
+
+
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +68,6 @@ public class HomepageActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
                             case R.id.action_groups:
                                 group.setVisibility(View.VISIBLE);
-                                calendar.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"groups");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
@@ -73,7 +77,6 @@ public class HomepageActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_schedules:
                                 group.setVisibility(View.GONE);
-                                calendar.setVisibility(View.VISIBLE);
                                 upcoming.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Calendar");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
@@ -83,7 +86,6 @@ public class HomepageActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_upcoming:
                                 group.setVisibility(View.GONE);
-                                calendar.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.VISIBLE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Upcoming");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
