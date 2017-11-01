@@ -27,7 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class HomepageActivity extends AppCompatActivity {
+import java.util.Date;
+
+public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private TextView group;
@@ -47,15 +49,10 @@ public class HomepageActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String UUID = user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mRef = database.getReference("users");
 
-
-        addEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               Intent addEvent = new Intent(HomepageActivity.this, EventCreationActivity.class);
-               HomepageActivity.this.startActivity(addEvent);
-            }
-        });
+        addEvent.setOnClickListener(this);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -97,7 +94,6 @@ public class HomepageActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -105,6 +101,7 @@ public class HomepageActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.actions_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -116,6 +113,16 @@ public class HomepageActivity extends AppCompatActivity {
                 return true;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View view){
+        Toast.makeText(HomepageActivity.this, "IN ONCLICK", Toast.LENGTH_LONG).show();
+        if(view == addEvent){
+            Intent addEventIntent = new Intent(HomepageActivity.this,
+                    EventCreationActivity.class);
+            HomepageActivity.this.startActivity(addEventIntent);
+        }
     }
 
     private void signOut(){

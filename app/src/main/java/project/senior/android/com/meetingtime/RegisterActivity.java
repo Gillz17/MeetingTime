@@ -106,8 +106,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            String UUID = user.getUid();
+
                             //add user to the database
-                            writeNewUser(email, name);
+                            writeNewUser(email, name, UUID);
 
                             //create new events list
                             createEventList(email);
@@ -137,9 +140,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             RegisterActivity.this.startActivity(signInIntent);
         }
     }
-    private void writeNewUser(String email, String name){
-        Users user = new Users(email,name);
-        mDatabase.child("users").push().setValue(user);
+    private void writeNewUser(String email, String name, String UUID){
+        Users user = new Users(email, name);
+        mDatabase.child("users").child(UUID).push().setValue(user);
     }
     private void createEventList(String email){
         Event event = new Event();;

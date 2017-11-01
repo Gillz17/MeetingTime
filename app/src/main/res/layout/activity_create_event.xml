@@ -13,7 +13,7 @@
         android:inputType="textAutoCorrect"
         android:hint="Title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="25dp"/>
 
     <EditText
         android:id="@+id/bDate"
@@ -23,7 +23,8 @@
         android:layout_below="@+id/tfTitle"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="date"/>
+        android:inputType="date"
+        android:hint="Click to pick a date"/>
 
     <EditText
         android:id="@+id/tfStartTime"
@@ -32,7 +33,8 @@
         android:layout_alignStart="@+id/bDate"
         android:layout_below="@+id/bDate"
         android:layout_marginTop="20dp"
-        android:inputType="datetime"/>
+        android:inputType="datetime"
+        android:hint="Start time"/>
 
     <EditText
         android:id="@+id/tfEndTime"
@@ -41,7 +43,8 @@
         android:layout_alignStart="@+id/bDate"
         android:layout_below="@+id/tfStartTime"
         android:layout_marginTop="20dp"
-        android:inputType="datetime"/>
+        android:inputType="datetime"
+        android:hint="End time"/>
 
     <EditText
         android:id="@+id/tfLocation"
@@ -53,8 +56,6 @@
         android:ems="10"
         android:hint="Location"
         android:inputType="textAutoCorrect"/>
-
-
 
     <TimePicker
         android:id="@+id/timePicker"
@@ -73,78 +74,83 @@
         tools:layout_editor_absoluteY="0dp"/>
 
     <RadioGroup
-        android:id="@+id/rg1"
-        android:layout_width="wrap_content"
+        android:id="@+id/RadioGroup"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tfLocation"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/rbRed"
+        android:layout_below="@+id/tfLocation"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:id="@+id/Linear1"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <RadioButton
+                android:id="@+id/rbRed"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:buttonTint="@color/red"/>
+            <RadioButton
+                android:id="@+id/rbBlue"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:buttonTint="@color/blue"/>
+            <RadioButton
+                android:id="@+id/rbGreen"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:buttonTint="@color/green"/>
+            <RadioButton
+                android:id="@+id/rBYellow"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:buttonTint="@color/yellow"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Linear2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:checked="true"
-            android:buttonTint="@color/red"/>
-        <RadioButton
-            android:id="@+id/rbBlue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:buttonTint="@color/blue"/>
-        <RadioButton
-            android:id="@+id/rbGreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:buttonTint="@color/green"/>
-        <RadioButton
-            android:id="@+id/rbYellow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:buttonTint="@color/yellow"/>
-        </RadioGroup>
-        <RadioGroup
-            android:id="@+id/rg2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rg1"
-            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:layout_below="@id/Linear1"
             android:orientation="horizontal">
             <RadioButton
-                android:id="@+id/rbPurple"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:buttonTint="@color/purple"/>
             <RadioButton
-                android:id="@+id/rbOrange"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:buttonTint="@color/orange"/>
             <RadioButton
-                android:id="@+id/rbPink"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:buttonTint="@color/pink"/>
             <RadioButton
-                android:id="@+id/rbBrown"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:buttonTint="@color/brown"/>
-        </RadioGroup>
+        </LinearLayout>
+    </RadioGroup>
 
     <Button
         android:id="@+id/bCreate"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/rg1"
-        android:layout_below="@+id/rg2"
-        android:text="Create Event" />
+        android:layout_marginTop="15dp"
+        android:text="Create Event"
+        android:layout_below="@id/RadioGroup"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
