@@ -41,6 +41,10 @@ public class EventCreationActivity extends AppCompatActivity{
     private RadioButton brown;
     private Button createEvent;
 
+    private String pickedDate;
+    private String pickedStartTime;
+    private String pickedEndTime;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -81,9 +85,9 @@ public class EventCreationActivity extends AppCompatActivity{
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month +1;
 
-                String Date = month + "/" + day + "/" + year;
-                date.setText(Date);
-
+                String newDate = month + "/" + day + "/" + year;
+                date.setText(newDate);
+                pickedDate = newDate;
             }
         };
         startTime.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +129,7 @@ public class EventCreationActivity extends AppCompatActivity{
                 }
                 String time = hour + ":" + minutes + AmOrPM;
                 startTime.setText(time);
+                pickedStartTime = time;
             }
         };
         endTime.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +171,17 @@ public class EventCreationActivity extends AppCompatActivity{
                 }
                 String time = hour + ":" + minutes + AmOrPM;
                 endTime.setText(time);
+                pickedEndTime = time;
             }
         };
+
+        createEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(EventCreationActivity.this,
+                        pickedDate + " / " + pickedStartTime + " / " + pickedEndTime,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
