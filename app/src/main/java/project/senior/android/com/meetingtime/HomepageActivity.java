@@ -118,7 +118,6 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view){
-        Toast.makeText(HomepageActivity.this, "IN ONCLICK", Toast.LENGTH_LONG).show();
         if(view == addEvent){
             Intent addEventIntent = new Intent(HomepageActivity.this,
                     EventCreationActivity.class);

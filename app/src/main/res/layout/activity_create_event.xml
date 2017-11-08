@@ -16,67 +16,69 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"/>
 
-    <EditText
-        android:id="@+id/bDate"
+    <TextView
+        android:id="@+id/tvDate"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tfTitle"
+        android:ems="10"
+        android:hint="Date"
+        android:textSize="20dp"
+        android:textAlignment="center"
         android:layout_below="@+id/tfTitle"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tvStartTime"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="date"
-        android:hint="Click to pick a date"
-        android:textAlignment="center"/>
+        android:hint="Start Time"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:layout_below="@+id/tvDate"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
 
-    <EditText
-        android:id="@+id/tfStartTime"
+    <TextView
+        android:id="@+id/tvEndTime"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/bDate"
-        android:layout_below="@+id/bDate"
+        android:ems="10"
+        android:hint="End Time"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:layout_below="@+id/tvStartTime"
         android:layout_marginTop="20dp"
-        android:inputType="datetime"
-        android:hint="Start time"
-        android:textAlignment="center"/>
-
-    <EditText
-        android:id="@+id/tfEndTime"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/bDate"
-        android:layout_below="@+id/tfStartTime"
-        android:layout_marginTop="20dp"
-        android:inputType="datetime"
-        android:hint="End time"
-        android:textAlignment="center"/>
+        android:layout_centerHorizontal="true"/>
 
     <EditText
         android:id="@+id/tfLocation"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tfEndTime"
-        android:layout_below="@+id/tfEndTime"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Location"
         android:textAlignment="center"
-        android:inputType="textAutoCorrect"/>
+        android:inputType="textAutoCorrect"
+        android:layout_below="@+id/tvEndTime"
+        android:layout_centerHorizontal="true"/>
 
     <TimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/timePick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"/>
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
 
     <DatePicker
-        android:id="@+id/datePicker"
+        android:id="@+id/datePick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
     <RadioGroup
         android:id="@+id/RadioGroup"
@@ -85,7 +87,7 @@
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/tfLocation"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:id="@+id/Linear1"
@@ -126,21 +128,25 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <RadioButton
+                android:id="@+id/rbPurple"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:buttonTint="@color/purple"/>
             <RadioButton
+                android:id="@+id/rbOrange"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:buttonTint="@color/orange"/>
             <RadioButton
+                android:id="@+id/rbPink"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:buttonTint="@color/pink"/>
             <RadioButton
+                android:id="@+id/rbBrown"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -149,10 +155,10 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/bCreate"
+        android:id="@+id/bCreateEvent"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:text="Create Event"
         android:layout_below="@id/RadioGroup"
         android:layout_centerHorizontal="true"/>
