@@ -34,6 +34,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
+    private DatabaseReference mUsers;
+    private DatabaseReference mEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         signInLink.setOnClickListener(this);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mUsers = FirebaseDatabase.getInstance().getReference("users");
     }
 
     private void registerUser(){
@@ -113,14 +116,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             writeNewUser(email, name, UUID);
 
                             //create new events list
-                            createEventList(email);
+                            createEventList(UUID);
 
                             //start homepage activity
-                            Intent homepageIntent = new Intent(RegisterActivity.this, HomepageActivity.class);
+                            Intent homepageIntent = new Intent(RegisterActivity.this,
+                                    HomepageActivity.class);
                             RegisterActivity.this.startActivity(homepageIntent);
                         }else{
                             //show error message
-                            Toast.makeText(RegisterActivity.this,"Could not register. Please try again.",
+                            Toast.makeText(RegisterActivity.this,
+                                    "Could not register. Please try again.",
                                     Toast.LENGTH_LONG).show();
                         }
                     }
@@ -136,15 +141,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if(view == signInLink){
             //open sign in activity
-            Intent signInIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            Intent signInIntent = new Intent(RegisterActivity.this,
+                    LoginActivity.class);
             RegisterActivity.this.startActivity(signInIntent);
         }
     }
     private void writeNewUser(String email, String name, String UUID){
         Users user = new Users(email, name);
-        mDatabase.child("users").child(UUID).push().setValue(user);
+        mUsers.child("User UUID = " + UUID).setValue(user);
     }
-    private void createEventList(String email){
-        Event event = new Event();;
+    private void createEventList(String UUID){
+        mEvents = FirebaseDatabase.getInstance().getReference("users")
+                .child("User UUID = " + UUID);
     }
 }

@@ -7,16 +7,23 @@ import java.util.Date;
  */
 
 public class Event {
-    public String title;
-    public int startTime;
-    public int endTime;
-    public String location;
-    public String eventColor;
-    public Date date;
+    private String title;
+    private int startTime;
+    private int endTime;
+    private String location;
+    private String eventColor;
+    private Date date;
 
-    public Event(){
-
+    public Event(String title,
+                  Date date, int startTime,
+                  int endTime, String eventColor){
+        this.title = title;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.eventColor = eventColor;
     }
+
     public Event(String title,
                  Date date, int startTime,
                  int endTime, String eventColor,
@@ -30,20 +37,20 @@ public class Event {
     }
 
     public String getTitle(){
-        return this.title;
+        return title;
     }
     public Date getDate(){
-        return this.date;
+        return date;
     }
     public int getStartTime(){
-        return this.startTime;
+        return startTime;
     }
     public int getEndTime(){
-        return this.endTime;
+        return endTime;
     }
     public String getEventColor(){
-        return this.eventColor;
+        return eventColor;
     }
-    public String getLocation(){return this.location;}
+    public String getLocation(){return location;}
 }
 

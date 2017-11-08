@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".HomepageActivity"></activity>
+        <activity android:name=".EventCreationActivity"></activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

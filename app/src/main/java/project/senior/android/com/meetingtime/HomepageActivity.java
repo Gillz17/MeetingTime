@@ -1,14 +1,10 @@
 package project.senior.android.com.meetingtime;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +28,7 @@ import java.util.Date;
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private CalendarCustomView calendar;
     private TextView group;
     private TextView upcoming;
     private Button addEvent;
@@ -46,6 +43,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         group = (TextView) findViewById(R.id.text_groups);
         upcoming = (TextView) findViewById(R.id.text_upcoming);
         addEvent = (Button) findViewById(R.id.add_calendar_event);
+        calendar = (CalendarCustomView) findViewById(R.id.custom_calendar);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String UUID = user.getUid();
@@ -66,6 +64,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                             case R.id.action_groups:
                                 group.setVisibility(View.VISIBLE);
                                 upcoming.setVisibility(View.GONE);
+                                calendar.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"groups");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Group View");
@@ -75,6 +74,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                             case R.id.action_schedules:
                                 group.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.GONE);
+                                calendar.setVisibility(View.VISIBLE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Calendar");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Calendar View");
@@ -84,6 +84,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                             case R.id.action_upcoming:
                                 group.setVisibility(View.GONE);
                                 upcoming.setVisibility(View.VISIBLE);
+                                calendar.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Upcoming");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Upcoming View");
