@@ -2,8 +2,7 @@ package project.senior.android.com.meetingtime;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,16 +10,17 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.sql.Time;
-import java.util.Calendar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * Created by NCASE on 10/29/2017.
- */
+import java.util.Calendar;
 
 public class EventCreationActivity extends AppCompatActivity{
     private EditText title;
@@ -31,19 +31,17 @@ public class EventCreationActivity extends AppCompatActivity{
     private TextView endTime;
     private TimePickerDialog.OnTimeSetListener mEndOnTimeSetListener;
     private EditText location;
-    private RadioButton red;
-    private RadioButton blue;
-    private RadioButton green;
-    private RadioButton yellow;
-    private RadioButton purple;
-    private RadioButton orange;
-    private RadioButton pink;
-    private RadioButton brown;
+    private RadioButton radioColorButton;
     private Button createEvent;
+    private RadioGroup rg;
 
     private String pickedDate;
     private String pickedStartTime;
     private String pickedEndTime;
+    private String color;
+
+    private DatabaseReference mEvents;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState){
@@ -54,15 +52,13 @@ public class EventCreationActivity extends AppCompatActivity{
         startTime = (TextView) findViewById(R.id.tvStartTime);
         endTime = (TextView) findViewById(R.id.tvEndTime);
         location = (EditText) findViewById(R.id.tfLocation);
-        red = (RadioButton) findViewById(R.id.rbRed);
-        blue = (RadioButton) findViewById(R.id.rbBlue);
-        green = (RadioButton) findViewById(R.id.rbGreen);
-        yellow = (RadioButton) findViewById(R.id.rBYellow);
-        purple = (RadioButton) findViewById(R.id.rbPurple);
-        orange = (RadioButton) findViewById(R.id.rbOrange);
-        pink = (RadioButton) findViewById(R.id.rbPink);
-        brown = (RadioButton) findViewById(R.id.rbBrown);
+        rg = (RadioGroup) findViewById(R.id.rg);
         createEvent = (Button) findViewById(R.id.bCreateEvent);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String UUID = user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mRef = database.getReference("users");
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,10 +174,37 @@ public class EventCreationActivity extends AppCompatActivity{
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(EventCreationActivity.this,
-                        pickedDate + " / " + pickedStartTime + " / " + pickedEndTime,
-                        Toast.LENGTH_LONG).show();
+                final String name = title.getText().toString().trim();
+                final String loca = location.getText().toString().trim();
+
+                int selectedId = rg.getCheckedRadioButtonId();
+                radioColorButton = (RadioButton) findViewById(selectedId);
+                if(radioColorButton == findViewById(R.id.rbRed)){
+                    color = "red";
+                }else if(radioColorButton == findViewById(R.id.rbOrange)){
+                    color = "orange";
+                }else if(radioColorButton == findViewById(R.id.rbYellow)){
+                    color = "yellow";
+                }else if(radioColorButton == findViewById(R.id.rbGreen)){
+                    color = "green";
+                }else if(radioColorButton == findViewById(R.id.rbBlue)){
+                    color = "blue";
+                }else if(radioColorButton == findViewById(R.id.rbPurple)){
+                    color = "purple";
+                }
+
+                createNewEvent(UUID, name, pickedDate, pickedStartTime, pickedEndTime, loca, color);
+                Intent Return = new Intent(EventCreationActivity.this,
+                        HomepageActivity.class);
+                EventCreationActivity.this.startActivity(Return);
             }
         });
+    }
+    private void createNewEvent(String UUID, String name, String pickedDate, String pickedStartTime,
+                                String pickedEndTime, String loca, String color){
+        Event event = new Event(name, pickedDate, pickedStartTime, pickedEndTime, color, loca);
+        mEvents = FirebaseDatabase.getInstance().getReference("users")
+                .child("User UUID = " + UUID);
+        mEvents.push().setValue(event);
     }
 }

@@ -8,15 +8,15 @@ import java.util.Date;
 
 public class Event {
     private String title;
-    private int startTime;
-    private int endTime;
+    private String startTime;
+    private String endTime;
     private String location;
     private String eventColor;
-    private Date date;
+    private String date;
 
     public Event(String title,
-                  Date date, int startTime,
-                  int endTime, String eventColor){
+                  String date, String startTime,
+                  String endTime, String eventColor){
         this.title = title;
         this.date = date;
         this.startTime = startTime;
@@ -25,8 +25,8 @@ public class Event {
     }
 
     public Event(String title,
-                 Date date, int startTime,
-                 int endTime, String eventColor,
+                 String date, String startTime,
+                 String endTime, String eventColor,
                  String location){
         this.title = title;
         this.startTime = startTime;
@@ -39,13 +39,13 @@ public class Event {
     public String getTitle(){
         return title;
     }
-    public Date getDate(){
+    public String  getDate(){
         return date;
     }
-    public int getStartTime(){
+    public String  getStartTime(){
         return startTime;
     }
-    public int getEndTime(){
+    public String  getEndTime(){
         return endTime;
     }
     public String getEventColor(){

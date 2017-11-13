@@ -129,8 +129,9 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         startActivity(new Intent(getApplicationContext(),LoginActivity.class));
 
     }
-    private void deleteAccount(){//Need way to delete account either through Firebase or Google
-                                //based on how the user signed in.
+    private void deleteAccount(){
+        //Need way to delete account either through Firebase or Google
+        //based on how the user signed in.
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
     @Override

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 public class GridAdapter extends ArrayAdapter {
     private static final String TAG = GridAdapter.class.getSimpleName();
     private LayoutInflater mInflater;
@@ -50,11 +51,12 @@ public class GridAdapter extends ArrayAdapter {
         //Add day to calendar
         TextView cellNumber = (TextView)view.findViewById(R.id.calendar_date_id);
         cellNumber.setText(String.valueOf(dayValue));
+
         //Add events to the calendar
         TextView eventIndicator = (TextView)view.findViewById(R.id.event_id);
         Calendar eventCalendar = Calendar.getInstance();
         for(int i = 0; i < allEvents.size(); i++){
-            eventCalendar.setTime(allEvents.get(i).getDate());
+            //eventCalendar.setTime(allEvents.get(i).getDate());
             if(dayValue == eventCalendar.get(Calendar.DAY_OF_MONTH) && displayMonth == eventCalendar.get(Calendar.MONTH) + 1
                     && displayYear == eventCalendar.get(Calendar.YEAR)){
                 eventIndicator.setBackgroundColor(Color.parseColor("#FF4081"));

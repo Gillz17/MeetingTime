@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Date"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textAlignment="center"
         android:layout_below="@+id/tfTitle"
         android:layout_marginTop="20dp"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Start Time"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textAlignment="center"
         android:layout_below="@+id/tvDate"
         android:layout_marginTop="20dp"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="End Time"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textAlignment="center"
         android:layout_below="@+id/tvStartTime"
         android:layout_marginTop="20dp"
@@ -62,7 +62,8 @@
         android:textAlignment="center"
         android:inputType="textAutoCorrect"
         android:layout_below="@+id/tvEndTime"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"/>
 
     <TimePicker
         android:id="@+id/timePick"
@@ -81,85 +82,58 @@
         android:layout_centerVertical="true" />
 
     <RadioGroup
-        android:id="@+id/RadioGroup"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/rg"
+        android:orientation="horizontal"
         android:layout_below="@+id/tfLocation"
-        android:layout_marginTop="20dp">
+        android:layout_centerHorizontal="true">
 
-        <LinearLayout
-            android:id="@+id/Linear1"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <RadioButton
-                android:id="@+id/rbRed"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/red"/>
-            <RadioButton
-                android:id="@+id/rbBlue"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/blue"/>
-            <RadioButton
-                android:id="@+id/rbGreen"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/green"/>
-            <RadioButton
-                android:id="@+id/rBYellow"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/yellow"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Linear2"
+        <RadioButton
+            android:id="@+id/rbRed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/rbPurple"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/purple"/>
-            <RadioButton
-                android:id="@+id/rbOrange"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/orange"/>
-            <RadioButton
-                android:id="@+id/rbPink"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/pink"/>
-            <RadioButton
-                android:id="@+id/rbBrown"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:buttonTint="@color/brown"/>
-        </LinearLayout>
+            android:buttonTint="@color/red"
+            android:padding="8.5dp" />
+        <RadioButton
+            android:id="@+id/rbOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/orange"
+            android:padding="8.5dp"/>
+        <RadioButton
+            android:id="@+id/rbYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/yellow"
+            android:padding="8.5dp"/>
+        <RadioButton
+            android:id="@+id/rbGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/green"
+            android:padding="8.5dp"/>
+        <RadioButton
+            android:id="@+id/rbBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/blue"
+            android:padding="8.5dp"/>
+        <RadioButton
+            android:id="@+id/rbPurple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple" />
     </RadioGroup>
 
     <Button
         android:id="@+id/bCreateEvent"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="75dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
         android:text="Create Event"
-        android:layout_below="@id/RadioGroup"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>
