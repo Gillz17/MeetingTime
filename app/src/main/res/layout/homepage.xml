@@ -4,11 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <project.senior.android.com.meetingtime.CalendarCustomView
-        android:id="@+id/custom_calendar"
+    <Button
+        android:id="@+id/add_calendar_event"
         android:layout_width="match_parent"
-        android:layout_height="455dp">
-    </project.senior.android.com.meetingtime.CalendarCustomView>
+        android:layout_height="50dp"
+        android:text="@string/add_event"/>
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/CalendarEventsView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="55dp"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/text_groups"
@@ -36,4 +49,7 @@
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:menu="@menu/bottom_nav_main"/>
+
+
+
 </RelativeLayout>

@@ -134,6 +134,6 @@
         android:layout_marginBottom="75dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
-        android:text="Create Event"
+        android:text="@string/add_event"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>
