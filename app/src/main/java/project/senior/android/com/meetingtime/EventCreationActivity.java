@@ -204,7 +204,7 @@ public class EventCreationActivity extends AppCompatActivity{
                                 String pickedEndTime, String loca, String color){
         Event event = new Event(name, pickedDate, pickedStartTime, pickedEndTime, color, loca);
         mEvents = FirebaseDatabase.getInstance().getReference("users")
-                .child("User UUID = " + UUID);
+                .child(UUID);
         mEvents.child("events").push().setValue(event);
     }
 }

@@ -8,7 +8,9 @@
         android:id="@+id/add_calendar_event"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/add_event"/>
+        android:text="@string/add_event"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:textColor="@color/black"/>
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -16,27 +18,26 @@
         android:layout_marginTop="50dp"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/CalendarEventsView"
+        android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="55dp"
         android:textAlignment="center"/>
 
-    <TextView
-        android:id="@+id/text_groups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/group"
+    <ListView
+        android:id="@+id/list_groups"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/text_upcoming"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecyclerViewUpcoming"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="55dp"
         android:layout_centerInParent="true"
-        android:text="@string/up"
         android:visibility="gone" />
 
     <android.support.design.widget.BottomNavigationView
@@ -46,8 +47,8 @@
         android:layout_alignParentBottom="true"
         android:elevation="8dp"
         app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/colorPrimaryWhite"
+        app:itemTextColor="@color/colorPrimaryWhite"
         app:menu="@menu/bottom_nav_main"/>
 
 

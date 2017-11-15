@@ -148,10 +148,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
     private void writeNewUser(String email, String name, String UUID){
         Users user = new Users(email, name);
-        mUsers.child("User UUID = " + UUID).setValue(user);
+        mUsers.child(UUID).setValue(user);
     }
     private void createEventList(String UUID){
         mEvents = FirebaseDatabase.getInstance().getReference("users")
-                .child("User UUID = " + UUID);
+                .child(UUID);
     }
 }

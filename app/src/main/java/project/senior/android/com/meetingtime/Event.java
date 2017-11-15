@@ -1,6 +1,7 @@
 package project.senior.android.com.meetingtime;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by NCASE on 10/29/2017.
@@ -13,6 +14,7 @@ public class Event {
     private String location;
     private String eventColor;
     private String date;
+    private List<Event> mEvents;
 
     public Event(String title,
                   String date, String startTime,
@@ -36,6 +38,9 @@ public class Event {
         this.location = location;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
     public String getTitle(){
         return title;
     }
@@ -52,5 +57,8 @@ public class Event {
         return eventColor;
     }
     public String getLocation(){return location;}
+    public List<Event> getEvents(){
+        return mEvents;
+    }
 }
 

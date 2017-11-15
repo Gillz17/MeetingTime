@@ -5,34 +5,36 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.api.services.calendar.Calendar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Date;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
-    //private CalendarCustomView calendar;
-    private TextView group;
-    private TextView upcoming;
+    private String UUID;
+    private CalendarView calendar;
     private Button addEvent;
-    private DatabaseReference mDatabase;
+    private RecyclerView calendarEvents;
+    private ListView groupList;
+    private RecyclerView upcomingList;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -40,15 +42,27 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.homepage);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        group = (TextView) findViewById(R.id.text_groups);
-        upcoming = (TextView) findViewById(R.id.text_upcoming);
         addEvent = (Button) findViewById(R.id.add_calendar_event);
-        //calendar = (CalendarCustomView) findViewById(R.id.custom_calendar);
+        calendar = (CalendarView) findViewById(R.id.calendarView);
+        calendarEvents = (RecyclerView) findViewById(R.id.RecyclerView);
+        groupList = (ListView) findViewById(R.id.list_groups);
+        upcomingList = (RecyclerView) findViewById(R.id.RecyclerViewUpcoming);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String UUID = user.getUid();
+        UUID = user.getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mRef = database.getReference("users");
+        DatabaseReference mRef = database.getReference("UUID");
+
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         addEvent.setOnClickListener(this);
 
@@ -62,9 +76,10 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                         Bundle bundle = new Bundle();
                         switch (item.getItemId()) {
                             case R.id.action_groups:
-                                group.setVisibility(View.VISIBLE);
-                                upcoming.setVisibility(View.GONE);
-                                //calendar.setVisibility(View.GONE);
+                                groupList.setVisibility(View.VISIBLE);
+                                upcomingList.setVisibility(View.GONE);
+                                calendar.setVisibility(View.GONE);
+                                addEvent.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"groups");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Group View");
@@ -72,9 +87,10 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         SELECT_CONTENT, bundle);
                                 break;
                             case R.id.action_schedules:
-                                group.setVisibility(View.GONE);
-                                upcoming.setVisibility(View.GONE);
-                                //calendar.setVisibility(View.VISIBLE);
+                                groupList.setVisibility(View.GONE);
+                                upcomingList.setVisibility(View.GONE);
+                                calendar.setVisibility(View.VISIBLE);
+                                addEvent.setVisibility(View.VISIBLE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Calendar");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Calendar View");
@@ -82,9 +98,10 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         SELECT_CONTENT, bundle);
                                 break;
                             case R.id.action_upcoming:
-                                group.setVisibility(View.GONE);
-                                upcoming.setVisibility(View.VISIBLE);
-                                //calendar.setVisibility(View.GONE);
+                                groupList.setVisibility(View.GONE);
+                                upcomingList.setVisibility(View.VISIBLE);
+                                calendar.setVisibility(View.GONE);
+                                addEvent.setVisibility(View.VISIBLE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Upcoming");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Upcoming View");
