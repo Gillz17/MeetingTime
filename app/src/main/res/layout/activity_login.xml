@@ -16,18 +16,18 @@
 
     <EditText
         android:id="@+id/tfEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:hint="@string/email"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="123dp" />
+        android:layout_marginTop="75sp" />
 
     <EditText
         android:id="@+id/Password"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/password"
@@ -41,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Password"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"
         android:text="@string/message"/>
 
     <Button
@@ -51,7 +52,9 @@
         android:text="@string/common_signin_button_text"
         android:layout_below="@+id/tvRegister"
         android:layout_alignStart="@+id/google_signin_button"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/orBreak"
@@ -61,5 +64,6 @@
         android:textAlignment="center"
         android:layout_below="@+id/bSignIn"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="28dp"
+        android:textSize="15sp"/>
 </RelativeLayout>

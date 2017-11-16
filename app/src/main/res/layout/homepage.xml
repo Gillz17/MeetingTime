@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/add_event"
-        android:backgroundTint="@color/colorPrimaryLight"
-        android:textColor="@color/black"/>
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"/>
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"

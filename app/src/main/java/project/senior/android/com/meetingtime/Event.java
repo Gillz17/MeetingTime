@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public class Event {
+    private String UUID;
     private String title;
     private String startTime;
     private String endTime;
@@ -16,7 +17,8 @@ public class Event {
     private String date;
     private List<Event> mEvents;
 
-    public Event(String title,
+    public Event(String UUID,
+                  String title,
                   String date, String startTime,
                   String endTime, String eventColor){
         this.title = title;
@@ -26,7 +28,8 @@ public class Event {
         this.eventColor = eventColor;
     }
 
-    public Event(String title,
+    public Event(String UUID,
+                 String title,
                  String date, String startTime,
                  String endTime, String eventColor,
                  String location){
@@ -57,6 +60,7 @@ public class Event {
         return eventColor;
     }
     public String getLocation(){return location;}
+    public String getUUID(){return UUID;}
     public List<Event> getEvents(){
         return mEvents;
     }

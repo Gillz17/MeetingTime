@@ -5,7 +5,7 @@ package project.senior.android.com.meetingtime;
  */
 
 public class Users {
-    public String username;
+    public String name;
     public String email;
 
     public Users() {
@@ -15,8 +15,8 @@ public class Users {
         this.email = email;
     }
 
-    public Users(String email, String username) {
-        this.username = username;
+    public Users(String email, String name) {
+        this.name = name;
         this.email = email;
     }
 }
