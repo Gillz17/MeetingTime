@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,21 +19,32 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
-    private String UUID;
     private CalendarView calendar;
     private Button addEvent;
-    private RecyclerView calendarEvents;
+    private ListView calendarEvents;
     private ListView groupList;
-    private RecyclerView upcomingList;
+    private ListView upcomingList;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String UUID = user.getUid();
+    DatabaseReference mRef = database.getReference();
+    DatabaseReference userRef = database.getReference().child("users");
+    DatabaseReference eventRef = database.getReference().child("events");
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -44,25 +54,9 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
 
         addEvent = (Button) findViewById(R.id.add_calendar_event);
         calendar = (CalendarView) findViewById(R.id.calendarView);
-        calendarEvents = (RecyclerView) findViewById(R.id.RecyclerView);
+        calendarEvents = (ListView) findViewById(R.id.ListEvents);
         groupList = (ListView) findViewById(R.id.list_groups);
-        upcomingList = (RecyclerView) findViewById(R.id.RecyclerViewUpcoming);
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        UUID = user.getUid();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mRef = database.getReference("UUID");
-
-        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        upcomingList = (ListView) findViewById(R.id.ListUpcoming);
 
         addEvent.setOnClickListener(this);
 
@@ -76,6 +70,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                         Bundle bundle = new Bundle();
                         switch (item.getItemId()) {
                             case R.id.action_groups:
+                                //change views to group list
                                 groupList.setVisibility(View.VISIBLE);
                                 upcomingList.setVisibility(View.GONE);
                                 calendar.setVisibility(View.GONE);
@@ -85,8 +80,10 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         "Group View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
+                                getUserGroups(UUID);
                                 break;
                             case R.id.action_schedules:
+                                //change views to standard calendar
                                 groupList.setVisibility(View.GONE);
                                 upcomingList.setVisibility(View.GONE);
                                 calendar.setVisibility(View.VISIBLE);
@@ -96,8 +93,10 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         "Calendar View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
+                                getCalendarEvents(UUID);
                                 break;
                             case R.id.action_upcoming:
+                                //Change view to list of upcoming events
                                 groupList.setVisibility(View.GONE);
                                 upcomingList.setVisibility(View.VISIBLE);
                                 calendar.setVisibility(View.GONE);
@@ -157,5 +156,50 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
     //able to enter again by pressing the back button
     //But with this they cannot do that
     public void onBackPressed() {
+    }
+
+    public void getCalendarEvents(String UUID){
+        eventRef.child(UUID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    HashMap<String, String> value = (HashMap<String, String>) child.getValue();
+                    String name = value.get("title");
+                    String date = value.get("date");
+                    String startTime = value.get("startTime");
+                    String endTime = value.get("endTime");
+                    String location = value.get("location");
+                    String color = value.get("color");
+                    Toast.makeText(HomepageActivity.this, name +" / " + date + " / " +
+                            startTime + " / " + endTime + " / " +
+                            location + " / " + color, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getUserGroups(String UUID){
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    HashMap<String, String> value = (HashMap<String, String>) child.getValue();
+                    String name = value.get("name");
+                    String email = value.get("email");
+                    Toast.makeText(HomepageActivity.this, name +" / " + email,
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

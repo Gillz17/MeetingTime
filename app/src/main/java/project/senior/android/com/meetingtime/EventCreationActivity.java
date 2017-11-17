@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -191,6 +192,12 @@ public class EventCreationActivity extends AppCompatActivity{
                     color = "blue";
                 }else if(radioColorButton == findViewById(R.id.rbPurple)){
                     color = "purple";
+                }
+
+                if(TextUtils.isEmpty(name)){
+                    title.setError("Enter a title for the event");
+                }else{
+                    title.setError(null);
                 }
 
                 createNewEvent(UUID, name, pickedDate, pickedStartTime, pickedEndTime, loca, color);
