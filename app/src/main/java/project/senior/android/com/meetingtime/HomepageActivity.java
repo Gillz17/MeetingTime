@@ -33,6 +33,7 @@ import java.util.List;
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private String UUID;
     private CalendarView calendar;
     private Button addEvent;
     private ListView calendarEvents;
@@ -41,7 +42,6 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String UUID = user.getUid();
     DatabaseReference mRef = database.getReference();
     DatabaseReference userRef = database.getReference().child("users");
     DatabaseReference eventRef = database.getReference().child("events");
@@ -51,6 +51,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        UUID = user.getUid();
 
         addEvent = (Button) findViewById(R.id.add_calendar_event);
         calendar = (CalendarView) findViewById(R.id.calendarView);
@@ -106,6 +107,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         "Upcoming View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
+                                getCalendarEvents(UUID);
                                 break;
                         }
                         return true;
@@ -169,7 +171,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                     String startTime = value.get("startTime");
                     String endTime = value.get("endTime");
                     String location = value.get("location");
-                    String color = value.get("color");
+                    String color = value.get("eventColor");
                     Toast.makeText(HomepageActivity.this, name +" / " + date + " / " +
                             startTime + " / " + endTime + " / " +
                             location + " / " + color, Toast.LENGTH_LONG).show();
