@@ -69,7 +69,14 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fabCreate);
 
         addEvent.setOnClickListener(this);
-        mFloatingActionButton.setOnClickListener(this);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addGroupIntent = new Intent(HomepageActivity.this,
+                        GroupCreationActivity.class);
+                HomepageActivity.this.startActivity(addGroupIntent);
+            }
+        });
 
         getCalendarEvents(UUID);
 
@@ -156,11 +163,6 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                     EventCreationActivity.class);
             HomepageActivity.this.startActivity(addEventIntent);
         }
-        if(view == mFloatingActionButton){
-            Intent addGroupIntent = new Intent(HomepageActivity.this,
-                    GroupCreationActivity.class);
-            HomepageActivity.this.startActivity(addGroupIntent);
-        }
     }
 
     private void signOut(){
@@ -208,7 +210,6 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getUserGroups(String UUID){
-        final String emails[] = new String[]{};
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -238,7 +239,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                 for(DataSnapshot child : dataSnapshot.getChildren()) {
                     HashMap<String, String> value = (HashMap<String, String>) child.getValue();
                     String name = value.get("title");
-                    titleList.add(name);
+                    titleList.add(value.get("title"));
                     String date = value.get("date");
                     String startTime = value.get("startTime");
                     String endTime = value.get("endTime");

@@ -19,10 +19,5 @@ public class GroupCreationActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_groups);
-
-        mSearchView = (SearchView)  findViewById(R.id.searchView);
-        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
-
-
     }
 }

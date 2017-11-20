@@ -3,18 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="350dp"
+
+    <EditText
+        android:id="@+id/tfGroupName"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/RecyclerView"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/searchView"
         android:layout_marginTop="16dp"
+        android:hint="Title of Group"
+        android:textAlignment="center"/>
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tfGroupName" />
+
+    <ListView
+        android:id="@+id/listUsers"
+        android:layout_width="350dp"
+        android:layout_height="355dp"
+        android:layout_below="@+id/search_bar"
         android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
