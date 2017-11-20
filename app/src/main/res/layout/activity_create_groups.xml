@@ -13,18 +13,23 @@
         android:hint="Title of Group"
         android:textAlignment="center"/>
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tfGroupName" />
 
     <ListView
         android:id="@+id/listUsers"
         android:layout_width="350dp"
         android:layout_height="355dp"
-        android:layout_below="@+id/search_bar"
+        android:layout_below="@+id/tfGroupName"
         android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/bCreateGroup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listUsers"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:text="Create Group"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>
