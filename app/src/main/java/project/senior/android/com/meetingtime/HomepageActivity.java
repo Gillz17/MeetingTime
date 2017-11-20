@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.sql.DriverManager.println;
+
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -39,6 +42,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
     private ListView calendarEvents;
     private ListView groupList;
     private ListView upcomingList;
+    List<String> listUsers;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -52,6 +56,8 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.homepage);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         UUID = user.getUid();
+
+        listUsers = new ArrayList<>();
 
         addEvent = (Button) findViewById(R.id.add_calendar_event);
         calendar = (CalendarView) findViewById(R.id.calendarView);
@@ -71,6 +77,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                         Bundle bundle = new Bundle();
                         switch (item.getItemId()) {
                             case R.id.action_groups:
+                                getUserGroups(UUID);
                                 //change views to group list
                                 groupList.setVisibility(View.VISIBLE);
                                 upcomingList.setVisibility(View.GONE);
@@ -81,7 +88,6 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         "Group View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
-                                getUserGroups(UUID);
                                 break;
                             case R.id.action_schedules:
                                 //change views to standard calendar
@@ -186,16 +192,20 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getUserGroups(String UUID){
+        final String emails[] = new String[]{};
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                listUsers.clear();
                 for(DataSnapshot child : dataSnapshot.getChildren()) {
-                    HashMap<String, String> value = (HashMap<String, String>) child.getValue();
-                    String name = value.get("name");
-                    String email = value.get("email");
-                    Toast.makeText(HomepageActivity.this, name +" / " + email,
-                            Toast.LENGTH_LONG).show();
+                   HashMap<String, String> value = (HashMap<String, String>)child.getValue();
+                   String user = value.get("name");
+                   listUsers.add(user);
                 }
+
+                ListAdapter adapter = new ArrayAdapter<>(HomepageActivity.this,
+                        android.R.layout.simple_list_item_1, listUsers);
+                groupList.setAdapter(adapter);
             }
 
             @Override
