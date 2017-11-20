@@ -14,13 +14,10 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
-    private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private String UUID;
     private CalendarView calendar;
@@ -47,7 +43,6 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mRef = database.getReference();
     DatabaseReference userRef = database.getReference().child("users");
     DatabaseReference eventRef = database.getReference().child("events");
 
@@ -129,7 +124,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         "Upcoming View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
-                                getUpcomingEvents(UUID);
+                                getUpcomingEvents();
                                 break;
                         }
                         return true;
@@ -231,7 +226,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
-    public void getUpcomingEvents(String UUID){
+    public void getUpcomingEvents(){
         eventRef.child(UUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -239,7 +234,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                 for(DataSnapshot child : dataSnapshot.getChildren()) {
                     HashMap<String, String> value = (HashMap<String, String>) child.getValue();
                     String name = value.get("title");
-                    titleList.add(value.get("title"));
+                    titleList.add(name);
                     String date = value.get("date");
                     String startTime = value.get("startTime");
                     String endTime = value.get("endTime");
