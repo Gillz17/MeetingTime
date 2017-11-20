@@ -15,7 +15,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,8 +30,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static java.sql.DriverManager.println;
-
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -42,7 +39,9 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
     private ListView calendarEvents;
     private ListView groupList;
     private ListView upcomingList;
+
     List<String> listUsers;
+    List<String> titleList;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -58,6 +57,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         UUID = user.getUid();
 
         listUsers = new ArrayList<>();
+        titleList = new ArrayList<>();
 
         addEvent = (Button) findViewById(R.id.add_calendar_event);
         calendar = (CalendarView) findViewById(R.id.calendarView);
@@ -66,6 +66,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         upcomingList = (ListView) findViewById(R.id.ListUpcoming);
 
         addEvent.setOnClickListener(this);
+        getCalendarEvents(UUID);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -113,7 +114,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                         "Upcoming View");
                                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.
                                         SELECT_CONTENT, bundle);
-                                getCalendarEvents(UUID);
+                                getUpcomingEvents(UUID);
                                 break;
                         }
                         return true;
@@ -170,18 +171,20 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         eventRef.child(UUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                titleList.clear();
                 for(DataSnapshot child : dataSnapshot.getChildren()) {
                     HashMap<String, String> value = (HashMap<String, String>) child.getValue();
                     String name = value.get("title");
+                    titleList.add(name);
                     String date = value.get("date");
                     String startTime = value.get("startTime");
                     String endTime = value.get("endTime");
                     String location = value.get("location");
                     String color = value.get("eventColor");
-                    Toast.makeText(HomepageActivity.this, name +" / " + date + " / " +
-                            startTime + " / " + endTime + " / " +
-                            location + " / " + color, Toast.LENGTH_LONG).show();
                 }
+                ListAdapter adapter = new ArrayAdapter<>(HomepageActivity.this,
+                        android.R.layout.simple_list_item_1, titleList);
+                calendarEvents.setAdapter(adapter);
             }
 
             @Override
@@ -206,6 +209,32 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                 ListAdapter adapter = new ArrayAdapter<>(HomepageActivity.this,
                         android.R.layout.simple_list_item_1, listUsers);
                 groupList.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void getUpcomingEvents(String UUID){
+        eventRef.child(UUID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                titleList.clear();
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    HashMap<String, String> value = (HashMap<String, String>) child.getValue();
+                    String name = value.get("title");
+                    titleList.add(name);
+                    String date = value.get("date");
+                    String startTime = value.get("startTime");
+                    String endTime = value.get("endTime");
+                    String location = value.get("location");
+                    String color = value.get("eventColor");
+                }
+                ListAdapter adapter = new ArrayAdapter<>(HomepageActivity.this,
+                        android.R.layout.simple_list_item_1, titleList);
+                upcomingList.setAdapter(adapter);
             }
 
             @Override
