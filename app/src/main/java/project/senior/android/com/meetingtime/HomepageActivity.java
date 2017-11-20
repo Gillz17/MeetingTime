@@ -3,6 +3,7 @@ package project.senior.android.com.meetingtime;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -39,12 +40,13 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
     private ListView calendarEvents;
     private ListView groupList;
     private ListView upcomingList;
+    private FloatingActionButton mFloatingActionButton;
 
     List<String> listUsers;
     List<String> titleList;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mRef = database.getReference();
     DatabaseReference userRef = database.getReference().child("users");
     DatabaseReference eventRef = database.getReference().child("events");
@@ -64,8 +66,11 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
         calendarEvents = (ListView) findViewById(R.id.ListEvents);
         groupList = (ListView) findViewById(R.id.list_groups);
         upcomingList = (ListView) findViewById(R.id.ListUpcoming);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fabCreate);
 
         addEvent.setOnClickListener(this);
+        mFloatingActionButton.setOnClickListener(this);
+
         getCalendarEvents(UUID);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
@@ -84,6 +89,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                 upcomingList.setVisibility(View.GONE);
                                 calendar.setVisibility(View.GONE);
                                 addEvent.setVisibility(View.GONE);
+                                mFloatingActionButton.setVisibility(View.VISIBLE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"groups");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Group View");
@@ -96,6 +102,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                 upcomingList.setVisibility(View.GONE);
                                 calendar.setVisibility(View.VISIBLE);
                                 addEvent.setVisibility(View.VISIBLE);
+                                mFloatingActionButton.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Calendar");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Calendar View");
@@ -109,6 +116,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                 upcomingList.setVisibility(View.VISIBLE);
                                 calendar.setVisibility(View.GONE);
                                 addEvent.setVisibility(View.VISIBLE);
+                                mFloatingActionButton.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Upcoming");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
                                         "Upcoming View");
@@ -147,6 +155,11 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
             Intent addEventIntent = new Intent(HomepageActivity.this,
                     EventCreationActivity.class);
             HomepageActivity.this.startActivity(addEventIntent);
+        }
+        if(view == mFloatingActionButton){
+            Intent addGroupIntent = new Intent(HomepageActivity.this,
+                    GroupCreationActivity.class);
+            HomepageActivity.this.startActivity(addGroupIntent);
         }
     }
 
