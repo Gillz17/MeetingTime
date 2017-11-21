@@ -35,8 +35,7 @@
         android:id="@+id/ListUpcoming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="55dp"
+        android:layout_below="@+id/add_calendar_event"
         android:layout_centerInParent="true"
         android:visibility="gone" />
 

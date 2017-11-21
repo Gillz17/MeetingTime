@@ -1,14 +1,18 @@
 package project.senior.android.com.meetingtime;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -29,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomepageActivity extends AppCompatActivity implements View.OnClickListener {
+
     private FirebaseAnalytics mFirebaseAnalytics;
     private String UUID;
     private CalendarView calendar;
@@ -75,6 +80,33 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
 
         getCalendarEvents(UUID);
 
+        groupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(HomepageActivity.this,
+                            android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(HomepageActivity.this);
+                }
+                builder.setTitle("Schedule Meeting?")
+                        .setMessage("Do you want to schedule a meeting for this group?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with schedule
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
@@ -91,6 +123,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                 upcomingList.setVisibility(View.GONE);
                                 calendar.setVisibility(View.GONE);
                                 addEvent.setVisibility(View.GONE);
+                                calendarEvents.setVisibility(View.GONE);
                                 mFloatingActionButton.setVisibility(View.VISIBLE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"groups");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
@@ -104,6 +137,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                 upcomingList.setVisibility(View.GONE);
                                 calendar.setVisibility(View.VISIBLE);
                                 addEvent.setVisibility(View.VISIBLE);
+                                calendarEvents.setVisibility(View.VISIBLE);
                                 mFloatingActionButton.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Calendar");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
@@ -118,6 +152,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                 upcomingList.setVisibility(View.VISIBLE);
                                 calendar.setVisibility(View.GONE);
                                 addEvent.setVisibility(View.VISIBLE);
+                                calendarEvents.setVisibility(View.GONE);
                                 mFloatingActionButton.setVisibility(View.GONE);
                                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Upcoming");
                                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
