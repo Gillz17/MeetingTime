@@ -43,7 +43,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference userRef = database.getReference().child("users");
+    DatabaseReference groupRef = database.getReference().child("groups");
     DatabaseReference eventRef = database.getReference().child("events");
 
     @Override
@@ -205,14 +205,14 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getUserGroups(String UUID){
-        userRef.addValueEventListener(new ValueEventListener() {
+        groupRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listUsers.clear();
                 for(DataSnapshot child : dataSnapshot.getChildren()) {
                    HashMap<String, String> value = (HashMap<String, String>)child.getValue();
-                   String user = value.get("name");
-                   listUsers.add(user);
+                   String title = value.get("title");
+                   listUsers.add(title);
                 }
 
                 ListAdapter adapter = new ArrayAdapter<>(HomepageActivity.this,
