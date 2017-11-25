@@ -2,10 +2,6 @@ package project.senior.android.com.meetingtime;
 
 import java.util.List;
 
-/**
- * Created by NCASE on 11/20/2017.
- */
-
 public class Group {
     private String title;
     private String owner;

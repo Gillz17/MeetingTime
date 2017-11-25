@@ -94,7 +94,7 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                         .setMessage("Do you want to schedule a meeting for this group?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // continue with schedule
+                                // continue with scheduling
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

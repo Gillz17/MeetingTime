@@ -58,7 +58,6 @@ public class GroupCreationActivity extends AppCompatActivity{
 
                 if(TextUtils.isEmpty(name)){
                     tfTitle.setError("Enter a name for this group");
-                    return;
                 }else{
                     tfTitle.setError(null);
 
