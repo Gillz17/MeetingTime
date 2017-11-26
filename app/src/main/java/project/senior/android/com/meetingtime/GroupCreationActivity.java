@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ public class GroupCreationActivity extends AppCompatActivity{
     private EditText tfTitle;
     private ListView mListView;
     private Button mCreate;
+    private TextView mMemberView;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String UUID = user.getUid();
@@ -47,8 +49,24 @@ public class GroupCreationActivity extends AppCompatActivity{
         tfTitle = (EditText) findViewById(R.id.tfGroupName);
         mListView = (ListView) findViewById(R.id.listUsers);
         mCreate = (Button) findViewById(R.id.bCreateGroup);
+        mMemberView = (TextView) findViewById(R.id.tvMembers);
+
+        members = new ArrayList<>();
         listUsers = new ArrayList<>();
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> arg0, View view,int position, long arg3) {
+                        final String name = tfTitle.getText().toString().trim();
+                        String selectedMember = (String) mListView.getItemAtPosition(position);
+                        members.add(selectedMember);
+                        for (int i = 0; i < members.size() ; i++) {
+                            mMemberView.setText(members.get(i) + " was added to the group, " + name);
+                        }
+                    }
+                }
+        );
         getUserGroups(UUID);
 
         mCreate.setOnClickListener(new View.OnClickListener() {

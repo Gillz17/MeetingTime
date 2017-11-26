@@ -25,11 +25,20 @@
         android:id="@+id/bCreateGroup"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/listUsers"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:text="Create Group"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/tvMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listUsers"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
 
 </RelativeLayout>
