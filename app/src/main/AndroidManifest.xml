@@ -26,6 +26,7 @@
         <activity android:name=".HomepageActivity"></activity>
         <activity android:name=".EventCreationActivity"></activity>
         <activity android:name=".GroupCreationActivity"></activity>
+        <activity android:name=".TimeSelectionActivity"></activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

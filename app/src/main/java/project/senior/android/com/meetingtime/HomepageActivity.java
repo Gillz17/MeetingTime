@@ -95,6 +95,9 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with scheduling
+                                Intent selectTimeIntent = new Intent(HomepageActivity.this,
+                                        TimeSelectionActivity.class);
+                                HomepageActivity.this.startActivity(selectTimeIntent);
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
