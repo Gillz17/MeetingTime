@@ -113,6 +113,6 @@ public class GroupCreationActivity extends AppCompatActivity{
 
     public void createGroup(String name, String UUID, List<String> members){
         Group group = new Group(name, UUID, members);
-        mGroups.push().setValue(group);
+        mGroups.child(name).setValue(group);
     }
 }

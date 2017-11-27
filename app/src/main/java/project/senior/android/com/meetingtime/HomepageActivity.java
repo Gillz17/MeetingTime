@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -82,7 +83,8 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
 
         groupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final String groupName = (String) groupList.getItemAtPosition(position);
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     builder = new AlertDialog.Builder(HomepageActivity.this,
@@ -97,6 +99,8 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                                 // continue with scheduling
                                 Intent selectTimeIntent = new Intent(HomepageActivity.this,
                                         TimeSelectionActivity.class);
+                                //Needed to send the name of the group to the other activity
+                                selectTimeIntent.putExtra("Group", groupName);
                                 HomepageActivity.this.startActivity(selectTimeIntent);
                             }
                         })

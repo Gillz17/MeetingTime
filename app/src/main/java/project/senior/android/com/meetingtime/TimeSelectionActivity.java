@@ -9,14 +9,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class TimeSelectionActivity extends AppCompatActivity {
@@ -29,19 +35,30 @@ public class TimeSelectionActivity extends AppCompatActivity {
 
     private ListView timeList;
     List<String> listAvailTimes;
+    List<String> groupMembers;
+    private TextView mMembersList;
 
     private String UUID;
+    private String groupName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_time);
 
+        //Needed to get the name of the group from the previous activity
+        groupName = getIntent().getExtras().getString("Group");
+
         timeList = (ListView) findViewById(R.id.lvTimes);
+        mMembersList = (TextView) findViewById(R.id.tvInstructions);
 
         UUID = user.getUid();
 
         listAvailTimes = new ArrayList<>();
+        groupMembers = new ArrayList<>();
+
+        getGroupMembers(groupName, groupMembers);
+
         //Random Times to test with
         listAvailTimes.add("8:00AM - 9:00AM");
         listAvailTimes.add("1:00PM - 2:30PM");
@@ -65,5 +82,26 @@ public class TimeSelectionActivity extends AppCompatActivity {
         ListAdapter adapter = new ArrayAdapter<>(TimeSelectionActivity.this,
                 android.R.layout.simple_list_item_1, times);
         timeList.setAdapter(adapter);
+    }
+
+    public void getGroupMembers(final String groupName, final List<String> groupMembers){
+        groupRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    HashMap<String, String> value = (HashMap<String, String>)child.getValue();
+                    String member = value.get("members");
+                    groupMembers.add(member);
+                    for (int i = 0; i <groupMembers.size() ; i++) {
+                        mMembersList.setText(groupMembers.get(i));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
