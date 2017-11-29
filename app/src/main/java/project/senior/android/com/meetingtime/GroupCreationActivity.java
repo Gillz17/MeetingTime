@@ -96,7 +96,7 @@ public class GroupCreationActivity extends AppCompatActivity{
                 listUsers.clear();
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     HashMap<String, String> value = (HashMap<String, String>)child.getValue();
-                    String user = value.get("name");
+                    String user = value.get("email");
                     listUsers.add(user);
                 }
                 ListAdapter adapter = new ArrayAdapter<>(GroupCreationActivity.this,

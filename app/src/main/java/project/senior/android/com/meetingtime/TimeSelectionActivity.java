@@ -57,7 +57,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
         listAvailTimes = new ArrayList<>();
         groupMembers = new ArrayList<>();
 
-        getGroupMembers(groupName, groupMembers);
+        getGroupMembers(groupName);
 
         //Random Times to test with
         listAvailTimes.add("8:00AM - 9:00AM");
@@ -84,17 +84,13 @@ public class TimeSelectionActivity extends AppCompatActivity {
         timeList.setAdapter(adapter);
     }
 
-    public void getGroupMembers(final String groupName, final List<String> groupMembers){
-        groupRef.addValueEventListener(new ValueEventListener() {
+    public void getGroupMembers(String groupName){
+        groupRef.child(groupName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     HashMap<String, String> value = (HashMap<String, String>)child.getValue();
-                    String member = value.get("members");
-                    groupMembers.add(member);
-                    for (int i = 0; i <groupMembers.size() ; i++) {
-                        mMembersList.setText(groupMembers.get(i));
-                    }
+
                 }
             }
 
