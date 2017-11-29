@@ -24,6 +24,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TimeSelectionActivity extends AppCompatActivity {
 
@@ -57,7 +58,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
         listAvailTimes = new ArrayList<>();
         groupMembers = new ArrayList<>();
 
-        getGroupMembers(groupName);
+        getGroupMembers();
 
         //Random Times to test with
         listAvailTimes.add("8:00AM - 9:00AM");
@@ -84,13 +85,12 @@ public class TimeSelectionActivity extends AppCompatActivity {
         timeList.setAdapter(adapter);
     }
 
-    public void getGroupMembers(String groupName){
-        groupRef.child(groupName).addValueEventListener(new ValueEventListener() {
+    public void getGroupMembers(){
+        groupRef.child(groupName).child("members").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot child : dataSnapshot.getChildren()){
-                    HashMap<String, String> value = (HashMap<String, String>)child.getValue();
-
+                for(DataSnapshot dsp : dataSnapshot.getChildren()){
+                    groupMembers.add(String.valueOf(dsp.getValue()));
                 }
             }
 
