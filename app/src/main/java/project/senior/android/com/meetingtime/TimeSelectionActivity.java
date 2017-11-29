@@ -7,17 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class TimeSelectionActivity extends AppCompatActivity {
 
@@ -34,10 +39,12 @@ public class TimeSelectionActivity extends AppCompatActivity {
     DatabaseReference userRef = database.getReference().child("users");
     DatabaseReference eventRef = database.getReference().child("events");
 
+    private EditText title;
     private ListView timeList;
     List<String> listAvailTimes;
     List<String> groupMembers;
-    private TextView mMembersList;
+    private EditText location;
+    private RadioGroup rg;
 
     private String UUID;
     private String groupName;
@@ -50,15 +57,21 @@ public class TimeSelectionActivity extends AppCompatActivity {
         //Needed to get the name of the group from the previous activity
         groupName = getIntent().getExtras().getString("Group");
 
+        title = (EditText) findViewById(R.id.tfTitle);
         timeList = (ListView) findViewById(R.id.lvTimes);
-        mMembersList = (TextView) findViewById(R.id.tvInstructions);
+        location = (EditText) findViewById(R.id.tfLocation);
+        rg = (RadioGroup) findViewById(R.id.rg);
 
         UUID = user.getUid();
 
         listAvailTimes = new ArrayList<>();
         groupMembers = new ArrayList<>();
 
+        //Gets all of the members of the group
         getGroupMembers();
+
+        //Need to get the groupMembers UUID for their events.
+        getGroupMembersEvents();
 
         //Random Times to test with
         listAvailTimes.add("8:00AM - 9:00AM");
@@ -72,9 +85,6 @@ public class TimeSelectionActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 final String time = (String) timeList.getItemAtPosition(position);
                 Toast.makeText(TimeSelectionActivity.this, time, Toast.LENGTH_LONG).show();
-                Intent HomepageIntent = new Intent(TimeSelectionActivity.this,
-                        HomepageActivity.class);
-                TimeSelectionActivity.this.startActivity(HomepageIntent);
             }
         });
     }
@@ -89,8 +99,12 @@ public class TimeSelectionActivity extends AppCompatActivity {
         groupRef.child(groupName).child("members").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                groupMembers.clear();
                 for(DataSnapshot dsp : dataSnapshot.getChildren()){
                     groupMembers.add(String.valueOf(dsp.getValue()));
+                    for (String data:groupMembers){
+                        Toast.makeText(TimeSelectionActivity.this,data,Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -99,5 +113,10 @@ public class TimeSelectionActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void getGroupMembersEvents(){
+        //Get the email from the list and find the associated UUID
+
     }
 }

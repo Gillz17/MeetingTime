@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     private void writeNewUser(String email, String name, String UUID){
-        Users user = new Users(email, name);
+        Users user = new Users(email, name, UUID);
         mUsers.child(UUID).setValue(user);
     }
     private void createEventList(String UUID){

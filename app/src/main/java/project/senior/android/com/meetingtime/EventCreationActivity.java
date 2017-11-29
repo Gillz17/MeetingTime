@@ -198,12 +198,12 @@ public class EventCreationActivity extends AppCompatActivity{
                     title.setError("Enter a title for the event");
                 }else{
                     title.setError(null);
-                }
 
-                createNewEvent(UUID, name, pickedDate, pickedStartTime, pickedEndTime, loca, color);
-                Intent Return = new Intent(EventCreationActivity.this,
-                        HomepageActivity.class);
-                EventCreationActivity.this.startActivity(Return);
+                    createNewEvent(UUID, name, pickedDate, pickedStartTime, pickedEndTime, loca, color);
+                    Intent Return = new Intent(EventCreationActivity.this,
+                            HomepageActivity.class);
+                    EventCreationActivity.this.startActivity(Return);
+                }
             }
         });
     }
