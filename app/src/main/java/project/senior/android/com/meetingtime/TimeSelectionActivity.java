@@ -126,7 +126,10 @@ public class TimeSelectionActivity extends AppCompatActivity {
                     String compEmail = value.get("email");
                     if (compEmail.equals(email)){
                         String UUID = value.get("UUID");
+                        Log.d("UUID", UUID);
                         getUsersEvents(UUID);
+                    }else {
+                        Log.d("GroupMembersEventFailed", email);
                     }
                 }
             }
@@ -141,8 +144,17 @@ public class TimeSelectionActivity extends AppCompatActivity {
     public void getUsersEvents(String UUID){
         eventRef.child(UUID).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
+            public void onDataChange(DataSnapshot dataSnapshot){
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    HashMap<String, String> value = (HashMap<String, String>) child.getValue();
+                    String name = value.get("title");
+                    String date = value.get("date");
+                    String startTime = value.get("startTime");
+                    String endTime = value.get("endTime");
+                    String location = value.get("location");
+                    String color = value.get("eventColor");
+                    Log.d("Event", name + date + startTime + endTime + location + color );
+                }
             }
 
             @Override

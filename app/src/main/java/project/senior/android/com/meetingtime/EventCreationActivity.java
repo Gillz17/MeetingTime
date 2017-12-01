@@ -107,15 +107,6 @@ public class EventCreationActivity extends AppCompatActivity{
         mStartOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                String AmOrPM = "AM";
-                if(hour == 0){
-                    hour = 12;
-                    AmOrPM = "AM";
-                }
-                if(hour > 11){
-                    hour = hour - 12;
-                    AmOrPM = "PM";
-                }
                 String minutes;
                 if(minute == 0){
                     minutes = "00";
@@ -124,7 +115,7 @@ public class EventCreationActivity extends AppCompatActivity{
                 }else{
                     minutes = String.valueOf(minute);
                 }
-                String time = hour + ":" + minutes + AmOrPM;
+                String time = hour + ":" + minutes;
                 startTime.setText(time);
                 pickedStartTime = time;
             }
@@ -149,15 +140,6 @@ public class EventCreationActivity extends AppCompatActivity{
         mEndOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                String AmOrPM = "AM";
-                if(hour == 0){
-                    hour = 12;
-                    AmOrPM = "AM";
-                }
-                if(hour > 11){
-                    hour = hour - 12;
-                    AmOrPM = "PM";
-                }
                 String minutes;
                 if(minute == 0){
                     minutes = "00";
@@ -166,7 +148,7 @@ public class EventCreationActivity extends AppCompatActivity{
                 }else{
                     minutes = String.valueOf(minute);
                 }
-                String time = hour + ":" + minutes + AmOrPM;
+                String time = hour + ":" + minutes;
                 endTime.setText(time);
                 pickedEndTime = time;
             }
@@ -181,17 +163,17 @@ public class EventCreationActivity extends AppCompatActivity{
                 int selectedId = rg.getCheckedRadioButtonId();
                 radioColorButton = (RadioButton) findViewById(selectedId);
                 if(radioColorButton == findViewById(R.id.rbRed)){
-                    color = "red";
+                    color = "Red";
                 }else if(radioColorButton == findViewById(R.id.rbOrange)){
-                    color = "orange";
+                    color = "Orange";
                 }else if(radioColorButton == findViewById(R.id.rbYellow)){
-                    color = "yellow";
+                    color = "Yellow";
                 }else if(radioColorButton == findViewById(R.id.rbGreen)){
-                    color = "green";
+                    color = "Green";
                 }else if(radioColorButton == findViewById(R.id.rbBlue)){
-                    color = "blue";
+                    color = "Blue";
                 }else if(radioColorButton == findViewById(R.id.rbPurple)){
-                    color = "purple";
+                    color = "Purple";
                 }
 
                 if(TextUtils.isEmpty(name)){
