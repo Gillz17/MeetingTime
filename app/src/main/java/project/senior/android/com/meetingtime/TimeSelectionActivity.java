@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,11 +43,10 @@ public class TimeSelectionActivity extends AppCompatActivity {
     private EditText title;
     private ListView timeList;
     List<String> listAvailTimes;
-    List<String> groupMembers;
+    ArrayList<String> groupMembers = new ArrayList<String>();
     private EditText location;
     private RadioGroup rg;
 
-    private String UUID;
     private String groupName;
 
     @Override
@@ -62,16 +62,13 @@ public class TimeSelectionActivity extends AppCompatActivity {
         location = (EditText) findViewById(R.id.tfLocation);
         rg = (RadioGroup) findViewById(R.id.rg);
 
-        UUID = user.getUid();
-
         listAvailTimes = new ArrayList<>();
-        groupMembers = new ArrayList<>();
 
-        //Gets all of the members of the group
+        //Gets all of the members of the group and
+        // starts the process of getting the users
+        //events to compare the times.
         getGroupMembers();
 
-        //Need to get the groupMembers UUID for their events.
-        getGroupMembersEvents();
 
         //Random Times to test with
         listAvailTimes.add("8:00AM - 9:00AM");
@@ -99,11 +96,13 @@ public class TimeSelectionActivity extends AppCompatActivity {
         groupRef.child(groupName).child("members").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                groupMembers.clear();
                 for(DataSnapshot dsp : dataSnapshot.getChildren()){
                     groupMembers.add(String.valueOf(dsp.getValue()));
+                    //just for testing
                     for (String data:groupMembers){
-                        Toast.makeText(TimeSelectionActivity.this,data,Toast.LENGTH_SHORT).show();
+                        Log.d("Members", groupMembers.toString());
+                        //Need to get the groupMembers UUID for their events.
+                        getGroupMembersEvents(data);
                     }
                 }
             }
@@ -115,8 +114,41 @@ public class TimeSelectionActivity extends AppCompatActivity {
         });
     }
 
-    public void getGroupMembersEvents(){
+    public void getGroupMembersEvents(final String email){
         //Get the email from the list and find the associated UUID
+        Log.d("Hello",email);
 
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot user : dataSnapshot.getChildren()){
+                    HashMap<String, String> value = (HashMap<String, String>) user.getValue();
+                    String compEmail = value.get("email");
+                    if (compEmail.equals(email)){
+                        String UUID = value.get("UUID");
+                        getUsersEvents(UUID);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getUsersEvents(String UUID){
+        eventRef.child(UUID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
