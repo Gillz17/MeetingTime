@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -46,6 +47,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
     ArrayList<String> groupMembers = new ArrayList<String>();
     private EditText location;
     private RadioGroup rg;
+    private Button createEventButton;
 
     private String groupName;
 
@@ -61,6 +63,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
         timeList = (ListView) findViewById(R.id.lvTimes);
         location = (EditText) findViewById(R.id.tfLocation);
         rg = (RadioGroup) findViewById(R.id.rg);
+        createEventButton = (Button) findViewById(R.id.bAddEvent);
 
         listAvailTimes = new ArrayList<>();
 
@@ -69,12 +72,6 @@ public class TimeSelectionActivity extends AppCompatActivity {
         //events to compare the times.
         getGroupMembers();
 
-
-        //Random Times to test with
-        listAvailTimes.add("8:00AM - 9:00AM");
-        listAvailTimes.add("1:00PM - 2:30PM");
-        listAvailTimes.add("10:00AM - 11:15AM");
-
         updateTimesList(listAvailTimes);
 
         timeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,6 +79,14 @@ public class TimeSelectionActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 final String time = (String) timeList.getItemAtPosition(position);
                 Toast.makeText(TimeSelectionActivity.this, time, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        createEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(TimeSelectionActivity.this,"Under Construction",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -154,6 +159,8 @@ public class TimeSelectionActivity extends AppCompatActivity {
                     String location = value.get("location");
                     String color = value.get("eventColor");
                     Log.d("Event", name + date + startTime + endTime + location + color );
+
+                    listAvailTimes.add(startTime + " - " + endTime);
                 }
             }
 
