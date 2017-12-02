@@ -40,6 +40,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
     DatabaseReference groupRef = database.getReference().child("groups");
     DatabaseReference userRef = database.getReference().child("users");
     DatabaseReference eventRef = database.getReference().child("events");
+    DatabaseReference timeRef = database.getReference().child("times");
 
     private EditText title;
     private ListView timeList;
@@ -71,6 +72,20 @@ public class TimeSelectionActivity extends AppCompatActivity {
         // starts the process of getting the users
         //events to compare the times.
         getGroupMembers();
+
+        timeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dsp : dataSnapshot.getChildren()){
+                    listAvailTimes.add(String.valueOf(dsp.getValue()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         updateTimesList(listAvailTimes);
 
@@ -160,7 +175,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
                     String color = value.get("eventColor");
                     Log.d("Event", name + date + startTime + endTime + location + color );
 
-                    listAvailTimes.add(startTime + " - " + endTime);
+
                 }
             }
 
