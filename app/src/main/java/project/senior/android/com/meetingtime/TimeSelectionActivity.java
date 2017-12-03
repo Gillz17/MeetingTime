@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -69,10 +70,11 @@ public class TimeSelectionActivity extends AppCompatActivity {
         listAvailTimes = new ArrayList<>();
 
         //Gets all of the members of the group and
-        // starts the process of getting the users
+        //starts the process of getting the users
         //events to compare the times.
         getGroupMembers();
 
+        //Gets the list of times that were added to the database inorder to schedule the meetings
         timeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,8 +88,6 @@ public class TimeSelectionActivity extends AppCompatActivity {
 
             }
         });
-
-        updateTimesList(listAvailTimes);
 
         timeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,6 +107,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
     }
 
     public void updateTimesList(List<String> times){
+        //Updates the list of available times
         ListAdapter adapter = new ArrayAdapter<>(TimeSelectionActivity.this,
                 android.R.layout.simple_list_item_1, times);
         timeList.setAdapter(adapter);
@@ -122,19 +123,19 @@ public class TimeSelectionActivity extends AppCompatActivity {
                     for (String data:groupMembers){
                         Log.d("Members", groupMembers.toString());
                         //Need to get the groupMembers UUID for their events.
-                        getGroupMembersEvents(data);
+                        getGroupMembersUUID(data);
                     }
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("GetGroupMembers", "Error getting the members of the group");
             }
         });
     }
 
-    public void getGroupMembersEvents(final String email){
+    public void getGroupMembersUUID(final String email){
         //Get the email from the list and find the associated UUID
         Log.d("Hello",email);
 
@@ -161,7 +162,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
         });
     }
 
-    public void getUsersEvents(String UUID){
+    public void getUsersEvents(final String UUID){
         eventRef.child(UUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot){
@@ -175,14 +176,54 @@ public class TimeSelectionActivity extends AppCompatActivity {
                     String color = value.get("eventColor");
                     Log.d("Event", name + date + startTime + endTime + location + color );
 
-
+                    findTimes(startTime, endTime);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("getUserUUID", "Error getting the user " + UUID + "'s events" );
             }
         });
+    }
+
+    public void findTimes (String startTime, String endTime){
+        int i = 0;
+        int j = 0;
+
+        boolean found = false;
+        Iterator<String> iter = listAvailTimes.iterator();
+        String curItem="";
+        int pos=0;
+
+        while (iter.hasNext())
+        {
+            pos++;
+            curItem =(String) iter .next();
+            if (curItem.equals(startTime)) {
+                i = pos-1;
+                found = true;
+            }
+            if (curItem.equals(endTime)){
+                j = pos-1;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            pos = 0;
+            Toast.makeText(TimeSelectionActivity.this, "Time not found", Toast.LENGTH_LONG).show();
+        }
+
+        removeTimes(i,j);
+    }
+    public void removeTimes(int i, int j){
+        ArrayList<String> toRemove = new ArrayList<>();
+        for(int x = i; x< j; x++){
+            toRemove.add(listAvailTimes.get(x));
+        }
+        listAvailTimes.removeAll(toRemove);
+        //Prints the list of available times
+        updateTimesList(listAvailTimes);
     }
 }
