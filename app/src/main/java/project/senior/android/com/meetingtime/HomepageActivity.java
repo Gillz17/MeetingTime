@@ -228,6 +228,8 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                     HashMap<String, String> value = (HashMap<String, String>) child.getValue();
                     String name = value.get("title");
                     titleList.add(name);
+
+                    //Unused to get the full event details
                     String date = value.get("date");
                     String startTime = value.get("startTime");
                     String endTime = value.get("endTime");
@@ -277,6 +279,8 @@ public class HomepageActivity extends AppCompatActivity implements View.OnClickL
                     HashMap<String, String> value = (HashMap<String, String>) child.getValue();
                     String name = value.get("title");
                     titleList.add(name);
+
+                    //Unused to get the full event details
                     String date = value.get("date");
                     String startTime = value.get("startTime");
                     String endTime = value.get("endTime");

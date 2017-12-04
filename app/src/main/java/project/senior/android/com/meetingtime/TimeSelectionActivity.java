@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,12 +49,18 @@ public class TimeSelectionActivity extends AppCompatActivity {
     private ListView timeList;
     List<String> listAvailTimes;
     ArrayList<String> groupMembers = new ArrayList<String>();
+    ArrayList<String> UUIDs = new ArrayList<String>();
     private TextView info;
     private EditText location;
     private RadioGroup rg;
+    private RadioButton radioColorButton;
     private Button createEventButton;
 
     private String groupName;
+    private String color;
+    String startTime = "";
+    String endTime = "";
+    String date = "12/4/2017";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,8 +101,6 @@ public class TimeSelectionActivity extends AppCompatActivity {
         });
 
         timeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            String startTime = "";
-            String endTime = "";
             int i = 0;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -112,8 +118,34 @@ public class TimeSelectionActivity extends AppCompatActivity {
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TimeSelectionActivity.this,"Under Construction",
-                        Toast.LENGTH_LONG).show();
+                final String name = title.getText().toString().trim();
+                final String loca = location.getText().toString().trim();
+
+                //Find the color of the radio button
+                int selectedId = rg.getCheckedRadioButtonId();
+                radioColorButton = (RadioButton) findViewById(selectedId);
+                if(radioColorButton == findViewById(R.id.rbRed)){
+                    color = "Red";
+                }else if(radioColorButton == findViewById(R.id.rbOrange)){
+                    color = "Orange";
+                }else if(radioColorButton == findViewById(R.id.rbYellow)){
+                    color = "Yellow";
+                }else if(radioColorButton == findViewById(R.id.rbGreen)){
+                    color = "Green";
+                }else if(radioColorButton == findViewById(R.id.rbBlue)){
+                    color = "Blue";
+                }else if(radioColorButton == findViewById(R.id.rbPurple)){
+                    color = "Purple";
+                }
+                //check if it has a title
+                if(TextUtils.isEmpty(name)){
+                    title.setError("Enter a title for the event");
+                }else{
+                    title.setError(null);
+                    for (final String data:UUIDs){
+                        createNewEvent(data,name,date,startTime,endTime,loca,color);
+                    }
+                }
             }
         });
     }
@@ -148,7 +180,6 @@ public class TimeSelectionActivity extends AppCompatActivity {
     }
 
     public void getGroupMembersUUID(final String email){
-        final ArrayList<String> UUIDs = new ArrayList<>();
         //Get the email from the list and find the associated UUID
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -232,6 +263,14 @@ public class TimeSelectionActivity extends AppCompatActivity {
             //Prints the list of available times
             updateTimesList(listAvailTimes);
         }
-
+    }
+    private void createNewEvent(String UUID, String name, String pickedDate, String pickedStartTime,
+                                String pickedEndTime, String loca, String color){
+        Event event = new Event(UUID , name, pickedDate, pickedStartTime, pickedEndTime, color, loca);
+        eventRef = FirebaseDatabase.getInstance().getReference();
+        eventRef.child("events").child(UUID).push().setValue(event);
+        Intent HomeIntent = new Intent(TimeSelectionActivity.this,
+                HomepageActivity.class);
+        TimeSelectionActivity.this.startActivity(HomeIntent);
     }
 }
