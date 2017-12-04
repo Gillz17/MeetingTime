@@ -25,5 +25,5 @@
     <string name="add_event">Add Calendar Event</string>
     <string name="current_date">October 2017</string>
     <string name="last_date">30</string>
-    <string name="instructions">Select a time that is best</string>
+    <string name="info">Select a time for the meeting to start and then again for the end time</string>
 </resources>

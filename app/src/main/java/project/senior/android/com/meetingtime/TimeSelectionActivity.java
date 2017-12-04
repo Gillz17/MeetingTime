@@ -47,6 +47,7 @@ public class TimeSelectionActivity extends AppCompatActivity {
     private ListView timeList;
     List<String> listAvailTimes;
     ArrayList<String> groupMembers = new ArrayList<String>();
+    private TextView info;
     private EditText location;
     private RadioGroup rg;
     private Button createEventButton;
@@ -63,6 +64,8 @@ public class TimeSelectionActivity extends AppCompatActivity {
 
         title = (EditText) findViewById(R.id.tfTitle);
         timeList = (ListView) findViewById(R.id.lvTimes);
+
+        info = (TextView) findViewById(R.id.tvInfo);
         location = (EditText) findViewById(R.id.tfLocation);
         rg = (RadioGroup) findViewById(R.id.rg);
         createEventButton = (Button) findViewById(R.id.bAddEvent);
@@ -90,10 +93,19 @@ public class TimeSelectionActivity extends AppCompatActivity {
         });
 
         timeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            String startTime = "";
+            String endTime = "";
+            int i = 0;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                final String time = (String) timeList.getItemAtPosition(position);
-                Toast.makeText(TimeSelectionActivity.this, time, Toast.LENGTH_LONG).show();
+                if (i == 0){
+                    startTime = (String) timeList.getItemAtPosition(position);
+                    i++;
+                }else if(i == 1){
+                    endTime = (String) timeList.getItemAtPosition(position);
+                    i = 0;
+                }
+                info.setText("New meeting time: " + startTime + " - " + endTime);
             }
         });
 
@@ -211,17 +223,15 @@ public class TimeSelectionActivity extends AppCompatActivity {
         if (!found) {
             pos = 0;
             Toast.makeText(TimeSelectionActivity.this, "Time not found", Toast.LENGTH_LONG).show();
+        }else {
+            ArrayList<String> toRemove = new ArrayList<>();
+            for(int x = i; x< j; x++){
+                toRemove.add(listAvailTimes.get(x));
+            }
+            listAvailTimes.removeAll(toRemove);
+            //Prints the list of available times
+            updateTimesList(listAvailTimes);
         }
 
-        removeTimes(i,j);
-    }
-    public void removeTimes(int i, int j){
-        ArrayList<String> toRemove = new ArrayList<>();
-        for(int x = i; x< j; x++){
-            toRemove.add(listAvailTimes.get(x));
-        }
-        listAvailTimes.removeAll(toRemove);
-        //Prints the list of available times
-        updateTimesList(listAvailTimes);
     }
 }

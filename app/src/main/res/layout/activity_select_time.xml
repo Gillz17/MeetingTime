@@ -15,10 +15,20 @@
     <ListView
         android:id="@+id/lvTimes"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_height="250sp"
+        android:layout_marginBottom="16dp"
         android:layout_below="@+id/tfTitle"
         android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lvTimes"
+        android:layout_marginBottom="16dp"
+        android:text="@string/info"
+        android:textSize="16sp"/>
 
     <EditText
         android:id="@+id/tfLocation"
@@ -26,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:hint="Location"
-        android:layout_below="@id/lvTimes"/>
+        android:layout_below="@id/tvInfo"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
